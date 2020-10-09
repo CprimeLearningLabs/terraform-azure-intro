@@ -6,8 +6,7 @@ terraform {
     }
   }
   backend "azurerm" {
-    #resource_group_name  = "terraform-course-backend"
-    storage_account_name = "aztfcoursebackend"
+    resource_group_name  = "terraform-course-backend"
     container_name       = "tfstate"
     key                  = "cprime.terraform.labs.tfstate.0137"
   }
