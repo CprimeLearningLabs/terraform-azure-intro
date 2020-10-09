@@ -37,7 +37,7 @@ resource "azurerm_key_vault" "lab" {
 
   access_policy {
     tenant_id = data.azurerm_client_config.current.tenant_id
-    object_id = "<GET VALUE FROM INSTRUCTOR>"
+    object_id = "[GET VALUE FROM INSTRUCTOR]"
     secret_permissions = [
       "get",
       "set",
@@ -66,7 +66,7 @@ To set the tenant id, we will simply add a data resource into the file.  (You wi
 data "azurerm_client_config" "current" {}
 ```
 
-The object id will be provided to you by the instructor of the class.  Substitute the value you receive for the <GET VALUE FROM INSTRUCTOR> placeholder in the key vault resource in the file.
+The object id will be provided to you by the instructor of the class.  Substitute the value you receive for the [GET VALUE FROM INSTRUCTOR] placeholder in the key vault resource in the file.
 
 > The need to hard-code the object id is due to using the Azure Portal Cloud Shell to run Terraform.  If you run Terraform from your own machine, you may be able to pull the object id from the same data resource as the tenant id.
 
@@ -80,7 +80,7 @@ Run terraform plan:
 terraform plan
 ```
 
-Run terraform apply:
+Run terraform apply.  The key value might take a couple minutes to create.
 ```
 terraform apply
 ```
@@ -122,7 +122,7 @@ For the “administrator_login_password” argument, use the following for the v
 
 ![Terraform - Change DB password](./images/tf-change-pw.png "Terraform - Change DB password")
 
-Run terraform plan:
+Run terraform plan.  Note that the database server will be updated in place and does not need to be re-created.
 ```
 terrafrom plan
 ```
