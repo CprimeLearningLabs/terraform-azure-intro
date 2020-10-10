@@ -19,11 +19,12 @@ For this lab, we will out two values:
 
 Create a file called “outputs.tf”
 
-Add outputs for the above two attributes to the file.  Try your hand at it first before looking at the solution.  You can take a look at the Terraform documentation to see what attributes are exported for the two resources:
+Add outputs for the above two attributes to the file.  Try your hand at it first before looking at the solution.  You might want to take a look at the Terraform documentation to see what attributes are exported for the two resources:
 - azurerm_linux_virtual_machine
 - azurerm_postgresql_server
 
 <details>
+
  _<summary>Click to see solution for outputs</summary>_
 
 ```
