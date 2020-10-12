@@ -39,9 +39,9 @@ Create a file called terraform.tfvars
 Set the values for the variables in that file.  Keep the region the same as before to avoid recreating the entire infrastructure.  Also, keeping the password the same as before will avoid re-creating the virtual machine.  (If you forgot the VM password, you can look in the solution folder of a previous lab.)   Change the database storage amount to a new value.
 
 ```
-region="westus2"
-db_storage=6144
-vm_password="<PASSWORD>""
+region = "westus2"
+db_storage = 6144
+vm_password = "<PASSWORD>"
 ```
 
 :bangbang: NOTE:  Storing passwords in a file is a strongly discouraged practice.  The virtual machine really should be using an SSH key for access instead of a password.  Including a password in the variables file is only for the convenience of this lab and should not be done in actual practice.

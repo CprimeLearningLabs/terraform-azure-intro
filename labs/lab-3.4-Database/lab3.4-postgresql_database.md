@@ -14,7 +14,7 @@ Create a new file “database.tf”
 touch database.tf
 ```
 
-Open the file for edit to add four new resources.
+Open the file for edit to add five new resources.
 
 1. A random number.  This will be needed as a suffix for the postgresql server name to make that server name unique in Azure.
 ```
@@ -57,12 +57,23 @@ resource "azurerm_postgresql_database" "lab" {
 
 4. A firewall rule to enable database access from the private subnet.
 ```
-resource "azurerm_postgresql_firewall_rule" "lab" {
-  name                = "aztf-labs-fwrule"
+resource "azurerm_postgresql_firewall_rule" "lab-rule1" {
+  name                = "aztf-labs-fwrule-private"
   resource_group_name = azurerm_resource_group.lab.name
   server_name         = azurerm_postgresql_server.lab.name
   start_ip_address    = cidrhost(azurerm_subnet.lab-private.address_prefixes[0],0)
   end_ip_address      = cidrhost(azurerm_subnet.lab-private.address_prefixes[0],255)
+}
+```
+
+5. A firewall rule to enable database access from the bastion host.
+```
+resource "azurerm_postgresql_firewall_rule" "lab-rule2" {
+  name                = "aztf-labs-fwrule-bastion"
+  resource_group_name = azurerm_resource_group.lab.name
+  server_name         = azurerm_postgresql_server.lab.name
+  start_ip_address    = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
+  end_ip_address      = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
 }
 ```
 
@@ -105,7 +116,7 @@ Click on Connection Security under Settings in the left navigation pane to confi
 
 Let’s confirm you can connect to the database server.
 
-(NOTE:  The current firewall rule restricts access only from the private subnet.  For this lab, we will temporarily grant access from the Azure Cloud Shell.)
+(NOTE:  The current firewall rules restrict access only from within the virtual network.  For this lab, we will temporarily grant access from the Azure Cloud Shell.)
 
 In Azure Portal, in the Connection Security screen for the database server, see the setting for “Allow access to Azure services”.  Change the setting to Yes.  Click Save icon to save the change.   You may need to wait a minute or so to get a pop-up notification that the change was successfully changed.
 
@@ -114,7 +125,7 @@ In Azure Portal, in the Connection Security screen for the database server, see 
 
 Go back to the Cloud Shell console.
 
-Enter the following command into the shell, substituting in the correct values for <SERVER_NAME>.  The server name is the resource name in the server list you saw in the Azure portal above (ending in the five digit random number). 
+Enter the following command into the shell, substituting in the correct values for <SERVER_NAME>.  The server name is the resource name in the server list you saw in the Azure portal above (ending in the five digit random number).
 
 ```
 psql --host=<SERVER_NAME>.postgres.database.azure.com --username=psqladmin@<SERVER_NAME> --dbname=postgres

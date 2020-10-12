@@ -28,18 +28,12 @@ resource "azurerm_postgresql_database" "lab" {
   collation           = "English_United States.1252"
 }
 
-resource "azurerm_postgresql_firewall_rule" "lab-rule1" {
-  name                = "aztf-labs-fwrule-private"
-  resource_group_name = azurerm_resource_group.lab.name
-  server_name         = azurerm_postgresql_server.lab.name
-  start_ip_address    = cidrhost(azurerm_subnet.lab-private.address_prefixes[0],0)
-  end_ip_address      = cidrhost(azurerm_subnet.lab-private.address_prefixes[0],255)
-}
+resource "azurerm_postgresql_firewall_rule" "lab" {
+  for_each = local.db_fw_rules
 
-resource "azurerm_postgresql_firewall_rule" "lab-rule2" {
-  name                = "aztf-labs-fwrule-bastion"
+  name                = "aztf-labs-fwrule-${each.key}"
   resource_group_name = azurerm_resource_group.lab.name
   server_name         = azurerm_postgresql_server.lab.name
-  start_ip_address    = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
-  end_ip_address      = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
+  start_ip_address    = each.value.start_ip
+  end_ip_address      = each.value.end_ip
 }
