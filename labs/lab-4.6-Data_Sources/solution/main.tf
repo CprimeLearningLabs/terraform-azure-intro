@@ -6,9 +6,10 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name  = "terraform-course-backend"
+    #resource_group_name  = "terraform-course-backend"
+    storage_account_name = "aztfcoursebackend"
     container_name       = "tfstate"
-    key                  = "cprime.terraform.labs.tfstate"
+    key                  = "cprime.terraform.labs.tfstate.0137"
   }
   required_version = "~> 0.13.0"
 }
@@ -29,12 +30,29 @@ locals {
       start_ip = cidrhost(azurerm_subnet.lab-private.address_prefixes[0],0)
       end_ip   = cidrhost(azurerm_subnet.lab-private.address_prefixes[0],255)
     },
-    bastion = {
+    public = {
       start_ip = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
       end_ip   = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
     }
   }
   cluster_size = 2
+
+  sg_rules = {
+    HTTP-Access = {
+      priority         = 100,
+      direction        = "Inbound",
+      access           = "Allow",
+      protocol         = "Tcp",
+      destination_port = 80
+    },
+    SSH-Access = {
+      priority         = 110,
+      direction        = "Inbound",
+      access           = "Allow",
+      protocol         = "Tcp",
+      destination_port = 22
+    }
+  }
 }
 
 resource "azurerm_resource_group" "lab" {
@@ -88,28 +106,19 @@ resource "azurerm_network_security_group" "lab-private" {
   location            = local.region
   resource_group_name = azurerm_resource_group.lab.name
 
-  security_rule {
-    name                       = "HTTP-Access"
-    priority                   = 100
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "80"
-    source_address_prefix      = "*"
-    destination_address_prefixes = azurerm_subnet.lab-private.address_prefixes
-  }
-
-  security_rule {
-    name                       = "SSH-Access"
-    priority                   = 110
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "22"
-    source_address_prefix      = "*"
-    destination_address_prefixes = azurerm_subnet.lab-private.address_prefixes
+  dynamic "security_rule" {
+    for_each = local.sg_rules
+    content {
+      name                         = security_rule.key
+      priority                     = security_rule.value.priority
+      direction                    = security_rule.value.direction
+      access                       = security_rule.value.access
+      protocol                     = security_rule.value.protocol
+      source_port_range            = "*"
+      destination_port_range       = security_rule.value.destination_port
+      source_address_prefix        = "*"
+      destination_address_prefixes = azurerm_subnet.lab-private.address_prefixes
+    }
   }
 }
 

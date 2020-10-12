@@ -8,7 +8,7 @@ terraform {
   backend "azurerm" {
     resource_group_name  = "terraform-course-backend"
     container_name       = "tfstate"
-    key                  = "cprime.terraform.labs.tfstate.0137"
+    key                  = "cprime.terraform.labs.tfstate"
   }
   required_version = "~> 0.13.0"
 }
