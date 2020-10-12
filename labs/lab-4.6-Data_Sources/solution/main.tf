@@ -6,10 +6,9 @@ terraform {
     }
   }
   backend "azurerm" {
-    #resource_group_name  = "terraform-course-backend"
-    storage_account_name = "aztfcoursebackend"
+    resource_group_name  = "terraform-course-backend"
     container_name       = "tfstate"
-    key                  = "cprime.terraform.labs.tfstate.0137"
+    key                  = "cprime.terraform.labs.tfstate"
   }
   required_version = "~> 0.13.0"
 }
@@ -30,7 +29,7 @@ locals {
       start_ip = cidrhost(azurerm_subnet.lab-private.address_prefixes[0],0)
       end_ip   = cidrhost(azurerm_subnet.lab-private.address_prefixes[0],255)
     },
-    public = {
+    bastion = {
       start_ip = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
       end_ip   = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
     }
@@ -39,18 +38,18 @@ locals {
 
   sg_rules = {
     HTTP-Access = {
-      priority         = 100,
-      direction        = "Inbound",
-      access           = "Allow",
-      protocol         = "Tcp",
-      destination_port = 80
+      priority               = 100,
+      direction              = "Inbound",
+      access                 = "Allow",
+      protocol               = "Tcp",
+      destination_port_range = 80
     },
     SSH-Access = {
-      priority         = 110,
-      direction        = "Inbound",
-      access           = "Allow",
-      protocol         = "Tcp",
-      destination_port = 22
+      priority               = 110,
+      direction              = "Inbound",
+      access                 = "Allow",
+      protocol               = "Tcp",
+      destination_port_range = 22
     }
   }
 }
@@ -115,7 +114,7 @@ resource "azurerm_network_security_group" "lab-private" {
       access                       = security_rule.value.access
       protocol                     = security_rule.value.protocol
       source_port_range            = "*"
-      destination_port_range       = security_rule.value.destination_port
+      destination_port_range       = security_rule.value.destination_port_range
       source_address_prefix        = "*"
       destination_address_prefixes = azurerm_subnet.lab-private.address_prefixes
     }

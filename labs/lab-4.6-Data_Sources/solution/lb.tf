@@ -3,6 +3,7 @@ resource "azurerm_public_ip" "lab-lb" {
   location                     = local.region
   resource_group_name          = azurerm_resource_group.lab.name
   allocation_method            = "Static"
+  tags                         = local.common_tags
 }
 
 resource "azurerm_lb" "lab" {
@@ -14,6 +15,8 @@ resource "azurerm_lb" "lab" {
     name                 = "publicIPAddress"
     public_ip_address_id = azurerm_public_ip.lab-lb.id
   }
+
+  tags = local.common_tags
 }
 
 resource "azurerm_lb_backend_address_pool" "lab" {

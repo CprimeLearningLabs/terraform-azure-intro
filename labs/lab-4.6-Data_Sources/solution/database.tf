@@ -1,7 +1,7 @@
 data "azurerm_key_vault_secret" "creds" {
   name         = "dbpassword"
   key_vault_id = azurerm_key_vault.lab.id
-  depends_on   =[azurerm_key_vault_secret.lab-db-pwd]
+  depends_on   = [azurerm_key_vault_secret.lab-db-pwd]
 }
 
 resource "random_integer" "suffix" {
