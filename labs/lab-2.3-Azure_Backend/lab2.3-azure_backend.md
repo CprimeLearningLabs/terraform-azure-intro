@@ -29,7 +29,7 @@ If you are running this lab in the Azure Cloud Shell, then Azure CLI authenticat
 
 We will be configuring a backend to store the terraform state in an Azure storage blob.  The storage account and container were already set up prior to the class.  The backend state will be stored in a new blob created in the container.
 
-Edit “main.tf” to add a backend for Azure.  Add the following as a sub-block in the terraform block.  (You can view the complete file in the /code folder.)
+Edit “main.tf” to add a backend for Azure.  Add the following as a sub-block in the terraform block.  (You can view the complete file in the solution subfolder.)
 *Make sure you are putting it in the correct location in the file (inside the terraform block) and not at the end of the file or another arbitrary location.*
 
 ```
