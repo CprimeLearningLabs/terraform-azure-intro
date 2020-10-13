@@ -24,7 +24,7 @@ resource "random_integer" "number" {
 }
 ```
 
-Save the file.  (If you want to verify your code, you can compare your code to the main.tf file in the code subfolder.)
+Save the file.  (If you want to verify your code, you can compare your code to the main.tf file in the solution subfolder.)
 
 Let's initialize the Terraform project. Run the following:
 
