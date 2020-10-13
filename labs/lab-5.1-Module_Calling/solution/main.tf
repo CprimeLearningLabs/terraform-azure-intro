@@ -46,7 +46,7 @@ locals {
       cluster_size = 3
     }
   }
-  cluster_size = try(coalesce(var.node_count, lookup(local.size_spec,var.load_level).cluster_size),1)
+  cluster_size = try(coalesce(var.node_count, lookup(local.size_spec,var.load_level).cluster_size), 1)
 
   sg_rules = {
     HTTP-Access = {
