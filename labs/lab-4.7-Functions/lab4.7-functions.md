@@ -100,7 +100,7 @@ Add two more variables to variables.tf:
 
 * **load_level** of type string with default as empty string
 
-details>
+<details>
 
  _<summary>Click to see solution for variables node_count and load_level</summary>_
 
@@ -128,7 +128,7 @@ We now want a way to determine cluster_size according to the following criteria:
 
 Try your hand at writing out the computation.  Replace the current hard-coded local value of cluster_size with the computation.  Compare your solution to that below (or in the main.tf file in the solution folder).
 
-details>
+<details>
 
  _<summary>Click to see a solution for computing cluster_size</summary>_
 
