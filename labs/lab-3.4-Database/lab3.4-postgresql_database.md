@@ -84,10 +84,12 @@ Run terraform validate to make sure you have no errors:
 terraform validate
 ```
 
-Run terraform plan and verify that only four new resources will be created.
+Run terraform plan and verify that only five new resources will be created.
 ```
 terraform plan
 ```
+![Terraform Plan - DB](./images/tf-plan-db.png "Terraform Plan - DB")
+
 
 Run terraform apply. (Remember to agree to the changes.)  The database server can sometimes take a few minutes to create.
 ```
