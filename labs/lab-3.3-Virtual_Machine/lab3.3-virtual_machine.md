@@ -145,6 +145,9 @@ terraform plan
 
 Notice that the plan shows an update to the security group.
 
+![Terraform Plan - Added SG](./images/tf-plan-sg.png "Terraform Plan - Added SG")
+
+
 Run terraform apply (remember to confirm yes to the changes):
 ```
 terraform apply
