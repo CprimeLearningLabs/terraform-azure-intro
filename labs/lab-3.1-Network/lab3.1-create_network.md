@@ -9,7 +9,7 @@ If you did not complete lab 2.3, you can simply copy the code from that lab as t
 
 ## Lab
 
-Copy the file "main.tf" from the code folder to replace the existing main.tf file.
+Copy the file "main.tf" from the solution folder to replace the existing main.tf file.
 
 Let's walk through what is changed in this file:
 
