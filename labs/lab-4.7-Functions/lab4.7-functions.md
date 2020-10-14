@@ -56,7 +56,7 @@ terraform plan
 Now open the terraform.tfvars file.  Add a value for tags variable:
 ```
 tags = {
-  Owner = “Development”
+  Owner = "Development"
 }
 ```
 
