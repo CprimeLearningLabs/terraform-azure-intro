@@ -85,7 +85,7 @@ Run terraform apply.  The key value might take a couple minutes to create.
 terraform apply
 ```
 
-![Terraform - Apply vault addition](./images/tf-apply-vault.png "Terraform - Apply cault addition")
+![Terraform - Apply vault addition](./images/tf-apply-vault.png "Terraform - Apply vault addition")
 
 Let's now see that Terraform treats a random password resource as a sensitive value. Run the following to verify that the value is not actually shown and is displayed as “(sensitive value)”.  This ensures that the secure password does not leak into logs.
 
@@ -126,7 +126,7 @@ Run terraform plan.  Note that the database server will be updated in place and 
 ```
 terrafrom plan
 ```
-
+![Terraform Plan - Key vault](./images/tf-plan-key-vault.png "Terraform Plan - Key vault")
 Run terraform apply
 ```
 terraform apply

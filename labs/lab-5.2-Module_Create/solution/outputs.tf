@@ -8,5 +8,5 @@ output "db-server-endpoint" {
 }
 
 output "load-balancer-public-ip" {
-  value = module.load_balancer.public_ip_address
+  value = module.load-balancer.public_ip_address
 }

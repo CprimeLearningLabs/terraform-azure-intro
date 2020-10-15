@@ -38,7 +38,7 @@ resource "azurerm_network_interface_backend_address_pool_association" "lab-app" 
   count                   = local.cluster_size
   network_interface_id    = azurerm_network_interface.lab-app[count.index].id
   ip_configuration_name   = "labConfiguration"
-  backend_address_pool_id = module.load_balancer.backend_address_pool_id
+  backend_address_pool_id = module.load-balancer.backend_address_pool_id
 }
 
 

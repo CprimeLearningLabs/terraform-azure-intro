@@ -10,6 +10,8 @@ At the top of the portal, find the icon to open a console window for Cloud Shell
 
 Pick Bash for the shell.  If you get a dialog saying that Cloud Shell requires you create a storage account, click Okay.  Sometimes it takes a short while to create the storage account.
 
+![Cloud Shell - Storage Acct](./images/cs-storage-acct.png "Cloud Shell - Storage Acct")
+
 Once in the shell, type "ls" to see that there is one sub-directory called "clouddrive" in your home.  Change to that sub-directory.
 
 ```

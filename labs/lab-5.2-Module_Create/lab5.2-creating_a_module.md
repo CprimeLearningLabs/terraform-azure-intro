@@ -53,23 +53,6 @@ variable "tags" {
   type = map(string)
 }
 
-variable "port_mapping" {
-  description = "map with keys: protocol, frontend_port, backend_port"
-  type = object ({
-    protocol      = string,
-    frontend_port = number,
-    backend_port  = number
-  })
-}
-
-variable "health_probe" {
-  description = "map with keys: protocol, port, request_path"
-  type = object ({
-    protocol     = string,
-    port         = number,
-    request_path = string
-  })
-}
 ```
 </details>
 
@@ -117,16 +100,6 @@ module "load-balancer" {
   location            = local.region
   resource_group_name = azurerm_resource_group.lab.name
   tags                = local.common_tags
-  port_mapping = {
-    protocol      = "Tcp"
-    frontend_port = 80
-    backend_port  = 80
-  }
-  health_probe = {
-    protocol     = "Http"
-    port         = 80
-    request_path = "/"
-  }
 }
 ```
 </details>
@@ -185,3 +158,107 @@ Now let’s make sure the load balancer works.
 You can then go to a browser and use the public IP of the load balancer to hit the HTTP server on the VMs.
 
 ![Browser - IP Address of LB/VMs](./images/http-lb.png "Browser - IP Address of LB/VMs")
+
+### Extra Credit
+
+If you are ambitious, try adding variables for the following as well.  Consider using the object data type for these.
+  * port mapping  (key-value pairs to set the protocol, frontend_port, and backend_port of the load balancer rule)
+  * health probe (key-value pairs to set the protocol, port, and path of the load balancer health probe)
+
+Add these to the load-balancer/variables.tf code. Compare your code to the solution below (or in the load-balancer/variables.tf file in the solution folder).
+
+<details>
+
+ _<summary>Click to see solution for load balancer module variables in load-balancer/variables.tf</summary>_
+
+```
+variable "port_mapping" {
+  description = "map with keys: protocol, frontend_port, backend_port"
+  type = object ({
+    protocol      = string,
+    frontend_port = number,
+    backend_port  = number
+  })
+}
+
+variable "health_probe" {
+  description = "map with keys: protocol, port, request_path"
+  type = object ({
+    protocol     = string,
+    port         = number,
+    request_path = string
+  })
+}
+```
+</details>
+<br /><br />
+Open the file vm-cluster.tf in the root module.  In the load balancer module, add values for the port_mapping and the health_probe.
+
+Try writing this on your own first. Compare your code to the solution below (or in the vm-cluster.tf file in the solution folder).
+
+<details>
+
+ _<summary>Click to see solution for load balancer module variables in vm_cluster.tf</summary>_
+
+```
+  port_mapping = {
+    protocol      = "Tcp"
+    frontend_port = 80
+    backend_port  = 80
+  }
+  health_probe = {
+    protocol     = "Http"
+    port         = 80
+    request_path = "/"
+  }
+```
+</details>
+
+<br /><br />
+In load-balancer/main.tf, replace the values for the port mappings and health probes with the appropriate variables.
+
+Compare your code to the solution below (or in the load-balancer/main.tf file in the solution folder).
+
+<details>
+ 
+ _<summary>Click to see solution for load balancer module variables in load-balancer/main.tf</summary>_
+ 
+```
+ resource "azurerm_lb_probe" "lab" {
+  resource_group_name = var.resource_group_name
+  loadbalancer_id     = azurerm_lb.lab.id
+  name                = "http-running-probe"
+  protocol            = var.health_probe["protocol"]
+  port                = var.health_probe["port"]
+  request_path        = var.health_probe["request_path"]
+}
+
+resource "azurerm_lb_rule" "lab" {
+  resource_group_name            = var.resource_group_name
+  loadbalancer_id                = azurerm_lb.lab.id
+  name                           = "aztf-labls-lb-rule"
+  protocol                       = var.port_mapping["protocol"]
+  frontend_port                  = var.port_mapping["frontend_port"]
+  backend_port                   = var.port_mapping["backend_port"]
+  frontend_ip_configuration_name = "publicIPAddress"
+  backend_address_pool_id        = azurerm_lb_backend_address_pool.lab.id
+  probe_id                       = azurerm_lb_probe.lab.id
+}
+```
+ 
+</details>
+
+<br /><br />
+Run terraform plan:
+```
+terraform plan
+```
+
+![Terraform Plan - Port mappings and Health Probe](./images/tf-plan-port-health.png "Terraform Plan - Port mappings and Health Probe")
+
+There are no changes to the infrastructure. Do you know why?
+
+Run terraform apply:
+```
+terraform apply
+```
