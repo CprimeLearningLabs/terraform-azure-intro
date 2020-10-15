@@ -173,8 +173,11 @@ terraform plan
 
 You should have seen the following behavior:
 * When the load_level and node_count are both missing from terraform.tfvars, the cluster_size derivation should have used the default value of 1, and the plan should have shown one virtual machine (plus its network interface and backend address pool association) to be destroyed.
+![Terraform Plan - missing load_level and node_count](./images/tf-plan-cluster1.png "Terraform Plan - missing load_level and node_count")
 * When you set load_level to "high" in terraform.tfvars, the cluster_size derivation should have used the lookup value of 3, and the plan should have shown one virtual machine (plus its network interface and backend address pool association) to be created.
+![Terraform Plan - load_level = high](./images/tf-plan-cluster2.png "Terraform Plan - load_level = high")
 * When you set the node_count to 2 in terraform.tfvars, the cluster_size derivation should have used that value, and the plan should have shown no change in the number of virtual machines.
+![Terraform Plan - node_count = 2](./images/tf-plan-cluster3.png "Terraform Plan - node_count = 2")
 
 ## Extra Credit
 
