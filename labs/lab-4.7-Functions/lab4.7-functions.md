@@ -65,7 +65,7 @@ Run terraform plan and see that the tags for numerous resources will be updated:
 terraform plan
 ```
 
-![Terraform Plan - Add value for Owner and merge tags](./images/tf-plan-merge-2.png "Terraform Plan - Add value for Owner and merge tags")
+![Terraform Plan - Add value for Owner and merge tags](./images/tf-plan-merge.png "Terraform Plan - Add value for Owner and merge tags")
 
 Run terraform apply:
 ```
