@@ -15,7 +15,7 @@ The module we want to use in this lab is at:
 
 * https://registry.terraform.io/modules/Azure/postgresql/azurerm/2.1.0
 
-Be sure to select version 2.10.
+Be sure to select version 2.1.0.
 
 Look through the module documentation to see how it should be used.  Look at the inputs section to see what input arguments are required versus optional.  Notice how this one module can create many of the resources you have in your database.tf file.  The module therefore provides a level of abstraction.
 
