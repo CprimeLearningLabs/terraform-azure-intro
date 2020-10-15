@@ -223,7 +223,7 @@ Compare your code to the solution below (or in the load-balancer/main.tf file in
  
  _<summary>Click to see solution for load balancer module variables in load-balancer/main.tf</summary>_
  
-'''
+```
  resource "azurerm_lb_probe" "lab" {
   resource_group_name = var.resource_group_name
   loadbalancer_id     = azurerm_lb.lab.id
@@ -244,7 +244,7 @@ resource "azurerm_lb_rule" "lab" {
   backend_address_pool_id        = azurerm_lb_backend_address_pool.lab.id
   probe_id                       = azurerm_lb_probe.lab.id
 }
-'''
+```
  
 </details>
 
