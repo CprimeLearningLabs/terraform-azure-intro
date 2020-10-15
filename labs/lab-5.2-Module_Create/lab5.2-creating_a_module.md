@@ -165,7 +165,7 @@ If you are ambitious, try adding variables for the following as well.  Consider 
   * port mapping  (key-value pairs to set the protocol, frontend_port, and backend_port of the load balancer rule)
   * health probe (key-value pairs to set the protocol, port, and path of the load balancer health probe)
 
-Add these to the variables.tf code. Compare your code to the solution below (or in the load-balancer/variables.tf file in the solution folder).
+Add these to the load-balancer/variables.tf code. Compare your code to the solution below (or in the load-balancer/variables.tf file in the solution folder).
 
 <details>
 
@@ -213,6 +213,39 @@ Try writing this on your own first. Compare your code to the solution below (or 
   }
 ```
 </details>
+
+In load-balancer/main.tf, replace the values for the port mappings and health probes with the appropriate variables.
+
+Compare your code to the solution below (or in the load-balancer/main.tf file in the solution folder).
+
+<details>
+ 
+ _<summary>Click to see solution for load balancer module variables</summary>_
+ 
+'''
+ resource "azurerm_lb_probe" "lab" {
+  resource_group_name = var.resource_group_name
+  loadbalancer_id     = azurerm_lb.lab.id
+  name                = "http-running-probe"
+  protocol            = var.health_probe["protocol"]
+  port                = var.health_probe["port"]
+  request_path        = var.health_probe["request_path"]
+}
+
+resource "azurerm_lb_rule" "lab" {
+  resource_group_name            = var.resource_group_name
+  loadbalancer_id                = azurerm_lb.lab.id
+  name                           = "aztf-labls-lb-rule"
+  protocol                       = var.port_mapping["protocol"]
+  frontend_port                  = var.port_mapping["frontend_port"]
+  backend_port                   = var.port_mapping["backend_port"]
+  frontend_ip_configuration_name = "publicIPAddress"
+  backend_address_pool_id        = azurerm_lb_backend_address_pool.lab.id
+  probe_id                       = azurerm_lb_probe.lab.id
+}
+'''
+ 
+ </details>
 
 Run terraform plan:
 ```
