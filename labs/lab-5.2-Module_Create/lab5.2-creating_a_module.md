@@ -167,9 +167,10 @@ If you are ambitious, try adding variables for the following as well.  Consider 
 
 Add these to the load-balancer/variables.tf code. Compare your code to the solution below (or in the load-balancer/variables.tf file in the solution folder).
 
+
 <details>
 
- _<summary>Click to see solution for load balancer module variables</summary>_
+ _<summary>Click to see solution for load balancer module variables in load-balancer/variables.tf</summary>_
 
 ```
 variable "port_mapping" {
@@ -196,9 +197,10 @@ Open the file vm-cluster.tf in the root module.  In the load balancer module, ad
 
 Try writing this on your own first. Compare your code to the solution below (or in the vm-cluster.tf file in the solution folder).
 
+
 <details>
 
- _<summary>Click to see solution for load balancer module variables</summary>_
+ _<summary>Click to see solution for load balancer module variables in vm_cluster.tf</summary>_
 
 ```
   port_mapping = {
@@ -214,13 +216,14 @@ Try writing this on your own first. Compare your code to the solution below (or 
 ```
 </details>
 
+
 In load-balancer/main.tf, replace the values for the port mappings and health probes with the appropriate variables.
 
 Compare your code to the solution below (or in the load-balancer/main.tf file in the solution folder).
 
 <details>
  
- _<summary>Click to see solution for load balancer module variables</summary>_
+ _<summary>Click to see solution for load balancer module variables in load-balancer/main.tf</summary>_
  
 '''
  resource "azurerm_lb_probe" "lab" {
@@ -251,6 +254,8 @@ Run terraform plan:
 ```
 terraform plan
 ```
+
+![Terraform Plan - Port mappings and Health Probe](./images/tf-plan-port-health.png "Terraform Plan - Port mappings and Health Probe")
 
 Run terraform apply:
 ```
