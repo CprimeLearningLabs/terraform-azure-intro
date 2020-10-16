@@ -20,7 +20,7 @@ The for_each operation requires a map.  What are the pieces of information that 
 
 Open main.tf to edit.
 
-In the locals block add a new map called db_fw_rules for the firewall rules.  Try your hand at writing the map, then check the solution below (or look in main.tf in the solution folder.)
+In the locals block add a new map called db_fw_rules for the firewall rules.  The map keys could be the name suffix ("private" and "bastion") and the values could be a sub-map for the start_ip and end_ip values.  Try your hand at writing the map, then check the solution below (or look in main.tf in the solution folder.)
 
 <details>
 
@@ -60,18 +60,18 @@ Run terraform validate:
 terraform validate
 ```
 
-Run terraform plan:
+Run terraform plan.  You should get a plan that will destroy the original firewall resources and create replacement firewall rule resources.
 
-You should get a plan that will destroy the original firewall resources and create replacement firewall rule resources.
-
-:question: Can you remember why this is the case?
+:question: Can you identify why this is the case even though the Azure name for the two rules has not changed?  (*Hint: What other name change could cause a resource to be re-created?*)
 ```
 terraform plan
 ```
 
 ![Terraform Plan - for_each](./images/tf-plan-foreach.png "Terraform Plan - for_each")
 
-Run terraform apply.  Note, you might get an error that the replacement resources could not be created due to the resource already existing.  This is due to a timing conflict between the destroy and create processing when the Azure name is the same between the old and new instances.  The destroy should have succeeded and you can simply run terraform apply a second time to perform the create.
+Run terraform apply.
+
+> Note, you might get an error that the replacement resources could not be created due to the resource already existing.  This is due to a timing conflict between the destroy and create processing when the Azure name is the same between the old and new instances.  The destroy should have succeeded and you can simply run terraform apply a second time to perform the create.
 
 ```
 terraform apply
@@ -84,7 +84,15 @@ To show the use of count, we will create an availability set of virtual machines
 
 Create a new file called “lb.tf”
 
-Copy the contents from the lb.tf file in the solution directory into your new file.  Do not make any changes.  You can examine the file, but leave it as is.
+Copy the contents from the lb.tf file in the solution directory into your new file.  Notice that it declares five new resoureces:
+
+* A public IP for the load balancer
+* A load balancer
+* A backend address pool for the virtual machines behind the load balancer
+* A health probe for the load balancer to detect whether or not a virtual machine is healthy
+* A routing rule for directing incoming traffic to the virtual machines
+
+Do not make any changes.  You can examine the file, but leave it as is.
 
 Open outputs.tf
 
@@ -231,19 +239,21 @@ terraform apply
 
 ### Install HTTP server on VMs
 
-Let's test out our new cluster.  We will need to install an HTTP server on each VM that we can try reaching through the load balancer.
+If you have extra time for the lab, you can test out the new cluster.
 
-The public IP for the new VMs is actually the public IP of the load balancer, which does not support passing SSH traffic through.  If we want to SSH to the new instances to install an HTTP server, we must go through the bastion host.
+You will need to install an HTTP server on each VM that you can try reaching through the load balancer.
+
+The public IP for the new VMs is actually the public IP of the load balancer, so you cannot SSH to the cluster VMs directly.  If you want to SSH to the new instances to install an HTTP server, you must go through the bastion host.
 
 SSH to the bastion host, using the public IP of that VM (as you did in an earlier lab).
 
 ![Cloudshell - ssh into bastion](./images/cs-ssh-public.png "Cloudshell - ssh into bastion")
 
-To SSH to the cluster VMs, you will need their private IPs.  You can find those by viewing the cluster VMs in the Azure Portal, or by using terraform show to see the state of the resources. Note that we want the private IPs since the public IPs of the cluster VMs is actually the public IP of the load balancer.
+To SSH to the cluster VMs, you will need their private IPs.  You can find those by viewing the cluster VMs in the Azure Portal, or by using terraform show to see the state of the resources. Note that you want the private IPs not the public IPs of the cluster VMs.
 
 ![Azure Portal - VM 0 IP address](./images/az-vm-0-ip.png "Azure Portal - VM 0 IP address")
 
-In the bastion host, ssh using the private IP of the new VMs.  You’ll be prompted for the password.
+From the bastion host, ssh using the private IP of the new VMs.  You’ll be prompted for the password.
 ```
 ssh adminuser@<private_ip>
 ```
