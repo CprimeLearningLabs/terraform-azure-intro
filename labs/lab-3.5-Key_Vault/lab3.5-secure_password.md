@@ -25,7 +25,7 @@ resource "random_password" "dbpassword" {
 }
 ```
 
-2. A key vault to hold secrets
+2. A key vault to hold secrets.  Notice the placeholder for the object_id argument &mdash; the value to substitute is explained further below.
 ```
 resource "azurerm_key_vault" "lab" {
   name                = "aztf-key-vault-${random_integer.suffix.result}"
@@ -118,7 +118,7 @@ We now want to use this secure password for the database.
 
 Open the “database.tf” file.
 
-For the “administrator_login_password” argument, use the following for the value:  azurerm_key_vault_secret.lab-db-pwd.value
+For the “administrator_login_password” argument, use the following for the value:  <code>azurerm_key_vault_secret.lab-db-pwd.value</code>
 
 ![Terraform - Change DB password](./images/tf-change-pw.png "Terraform - Change DB password")
 
@@ -134,4 +134,4 @@ terraform apply
 
 ![Terraform - Apply DB pw change](./images/tf-apply-change-pw.png "Terraform - Apply DB pw change")
 
-:bangbang: NOTE:  Using credentials stored in a key vault help secure the database.  The password in the vault can be revealed to privileged users.  But the password should not be saved in files on the application server.  Instead, use provisioning logic to extract the password from the vault and inject it into the application for access to the database.
+:bangbang: NOTE: Using credentials stored in a key vault helps secure the database.  Applications that need to access the database should use provisioning logic to extract the password from the vault and inject it into the application.  Although the password in the vault can be revealed to privileged users, the password should not be saved in files on an application server.
