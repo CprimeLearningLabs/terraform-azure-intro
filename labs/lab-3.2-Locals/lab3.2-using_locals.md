@@ -5,7 +5,7 @@ Lab Objective:
 
 ## Preparation
 
-If you did not complete lab 3.1, you can simply copy the code from that lab as the starting point for this lab.
+If you did not complete lab 3.1, you can simply copy the code from that lab (and run terraform apply) as the starting point for this lab.
 
 ## Lab
 
