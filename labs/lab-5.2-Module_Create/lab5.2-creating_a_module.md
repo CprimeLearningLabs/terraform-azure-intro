@@ -16,7 +16,7 @@ In this lab we will convert the load balancer configuration to be a module imple
 
 Create a subdirectory called “load-balancer”.
 ```
-mkdir load-balacer
+mkdir load-balancer
 ```
 
 Move the “lb.tf” file to the “load-balancer” directory and rename the file “main.tf”.  (Recall that each module should have a main.tf file as the principal configuration entry point.)
