@@ -15,7 +15,7 @@ In this lab we will use a data source to access the key vault rather than access
 
 Open database.tf for edit.
 
-Go to the Terraform documentation and find the documentation for the azurerm_key_vault_secret data resource.  (Be sure you find the *data* resource rather than a standard resource.)  Based on the documentation, try adding the data resource to the database.tf file.  Compare your code to the solution below (or in the database.tf file in the solution folder).
+Go to the Terraform documentation and find the documentation for the azurerm_key_vault_secret data resource.  (Be sure you find the **data** resource rather than a standard resource.)  Based on the documentation, try adding the data resource to the database.tf file.  Compare your code to the solution below (or in the database.tf file in the solution folder).
 
 <details>
 
@@ -30,9 +30,9 @@ data "azurerm_key_vault_secret" "creds" {
 ```
 </details>
 
-In the solution, notice that an explicit depends_on argument is included.  Can you recall from an earlier lecture on processing order dependencies why this is needed?  (Of course, if the data source was truly )
+In the solution, notice that an explicit depends_on argument is included.  Can you recall from an earlier lecture on processing order dependencies why this is needed?  (Of course, if the data source were truly from an external configuration, then the secret would already exist.)
 
-Now set the administrator_login_password argument in the azurerm_postgresql_server resource to use a reference to the data resource value.
+Now set the administrator_login_password argument in the <code>azurerm_postgresql_server</code> resource to use a reference to the data resource value.
 
 <details>
 
