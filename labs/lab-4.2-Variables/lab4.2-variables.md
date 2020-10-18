@@ -18,11 +18,32 @@ Create a file called variables.tf
 For this lab, we will create variables for the following:
 -	Region
 - VM password
--	Database storage amount
+-	Database storage amount (default value is 5120)
 
-Try your hand at writing the variable declarations in variables.tf.  If you are ambitious, try also to write a validation block to verify the db storage size is greater than or equal to 5120 and is a multiple of 1024.   Run terraform validate to check for syntax errors.
+Try your hand at writing the variable declarations in variables.tf.  Run terraform validate to check for syntax errors.
 
-Compare your code to the variables.tf file in the solution folder.
+Compare your code to the solution below (or to the variables.tf file in the solution folder).
+
+<details>
+
+ _<summary>Click to see solution for variables</summary>_
+
+```
+variable "region" {
+  type = string
+}
+
+variable "vm_password" {
+  description = "6-20 characters. At least 1 lower, 1 cap, 1 number, 1 special char."
+  type = string
+}
+
+variable "db_storage" {
+  type = number
+  default = 5120
+}
+```
+</details>
 
 Now, use a variable reference to replace the corresponding target expressions in the configuration files.  There should be three places:
 
@@ -36,7 +57,7 @@ Run terraform validate to check for errors.
 
 Create a file called terraform.tfvars
 
-Set the values for the variables in that file.  Keep the region the same as before to avoid recreating the entire infrastructure.  Also, keeping the password the same as before will avoid re-creating the virtual machine.  (If you forgot the VM password, you can look in the solution folder of a previous lab.)   Change the database storage amount to a new value.
+Set the values for the variables in that file.  Keep the region the same as before to avoid recreating the entire infrastructure.  Also, keeping the password the same as before will avoid re-creating the virtual machine.  (If you forgot the VM password, you can look in the solution folder of a previous lab.)  The database storage value must be a multiple of 1024 and greater than 5120.
 
 ```
 region = "westus2"
@@ -60,10 +81,24 @@ Run terraform apply:
 terraform apply
 ```
 
-Confirm you can SSH into the machine.
+### Extra Credit -- Validation
 
-:information_source: If you changed the password, you will need to get the IP Address of re-created VM via the Azure Console or by running _terraform_show_.
+If you still have time and are ambitious, try to write a validation block in variables.tf to verify the db_storage variable is greater than or equal to 5120 and is a multiple of 1024.
+
+
+<details>
+
+ _<summary>Click to see solution for db storage variable validation</summary>_
+
 ```
-ssh adminuser@<IP ADDDRESS OF VM>
-<vm_password>
+variable "db_storage" {
+  type = number
+  default = 5120
+
+  validation {
+    condition = var.db_storage >= 5120 && var.db_storage % 1024 == 0
+    error_message = "Minimum db storage is 5120 and must be multiple of 1024."
+  }
+}
 ```
+</details>

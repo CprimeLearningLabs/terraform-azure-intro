@@ -24,7 +24,7 @@ resource "random_integer" "number" {
 }
 ```
 
-Save the file.  (If you want to verify your code, you can compare your code to the main.tf file in the code subfolder.)
+Save the file.  (If you want to verify your code, you can compare your code to the main.tf file in the solution subfolder.)
 
 Let's initialize the Terraform project. Run the following:
 
@@ -61,7 +61,7 @@ Now let's actually apply the configuration. Run the following:
 ```
 terraform apply
 ```
-*You will be asked to confirm the apply command*
+*You will be asked to confirm the apply command. Type 'yes'.*
 
 You should see following:
 
@@ -73,13 +73,13 @@ Notice that there is now a file called terraform.tfstate.  Although you could op
 terraform show
 ```
 
-Notice that the contents show the random number.
+Notice that the contents show the generated random number as the "result" attribute.
 
 ![Terraform show](./images/tf-show.png "Output of terraform show")
 
 To destroy the resource, run the following:
 
-*You will be asked to confirm the destroy comand*
+*You will be asked to confirm the destroy command. Type 'yes'.*
 
 ```
 terraform destroy

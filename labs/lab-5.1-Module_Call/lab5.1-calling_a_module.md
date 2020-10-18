@@ -9,13 +9,13 @@ If you did not complete lab 4.7, you can simply copy the code from that lab (and
 
 ## Lab
 
-Go the Terraform registry to see what modules are available for creating a Postgresql server.  What do you find?
+Go the Terraform registry (https://registry.terraform.io/search/modules?provider=azurerm) to see what modules are available for creating a Postgresql server.  What do you find?
 
 The module we want to use in this lab is at:
 
 * https://registry.terraform.io/modules/Azure/postgresql/azurerm/2.1.0
 
-Be sure to select version 2.10.
+Be sure to select version 2.1.0.
 
 Look through the module documentation to see how it should be used.  Look at the inputs section to see what input arguments are required versus optional.  Notice how this one module can create many of the resources you have in your database.tf file.  The module therefore provides a level of abstraction.
 
@@ -62,7 +62,7 @@ module "database-server" {
 ```
 </details>
 
-In the azurerm_postgresql_firewall_rule resource, update the server name argument to reference the module instead of the server resource.  Look at the module documentation to see what the exported attribute for the server name is.  Be sure to include the "module" prefix in the reference.
+In the <code>azurerm_postgresql_firewall_rule</code> resource, update the server name argument to reference the module instead of the server resource.  Look at the module documentation to see what the exported attribute for the server name is.  Be sure to include the "module" prefix in the reference.
 
 <details>
 
@@ -93,7 +93,9 @@ output "db-server-endpoint" {
 ```
 </details>
 
-Run terraform init.  Do you recall why you need to do this?
+If you try running terraform validate at this point, you would get an error that you must first run terraform init.  Do you know why you would need to call init?
+
+Run terraform init:
 ```
 terraform init
 ```

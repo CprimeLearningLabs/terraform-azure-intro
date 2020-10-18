@@ -14,7 +14,7 @@ If you did not complete lab 3.2, you can simply copy the code from that lab as t
 
 The virtual machine we create in this lab is for a bastion host that has access from the public Internet.
 
-Create a new file “vm.tf”.
+Create a new file “vm.tf”.  If you are using the Cloud Shell built-in editor, you may need to hit the refresh icon in the file hierarchy view for the new file to show up in the hierarchy.
 
 Add three new resources to this file.
 
@@ -94,7 +94,9 @@ terraform apply
 
 ### Connect to the virtual machine
 
-To connect to the virtual machine, you need the public IP.  You can get this in a couple ways:
+Let's try checking that the infrastructure actually works by connecting to the virtual machine.
+
+To connect to the virtual machine, you need its public IP.  You can get this in a couple ways:
 
 1. Run terraform show
 
@@ -104,14 +106,14 @@ To connect to the virtual machine, you need the public IP.  You can get this in 
 
 2. Go to the Azure Portal
 
-    a. In the search bar, type “public”.  Select the “Public IP addresses” auto-suggestion in the drop-down.
+    a. In the portal search bar, type “public”.  Select the “Public IP addresses” auto-suggestion in the drop-down.
 
     b. Click on the public IP from the lab, and then see the IP address shown.
 
     ![Public IP - Azure portal](./images/az-vm-ip.png "Public IP - Azure portal")
 
 <br /><br />
-Once you find the public IP, SSH to the machine.  One the terminal type (substituting in the correct public IP):
+Once you find the public IP, SSH to the machine.  In the terminal console, type (substituting in the correct public IP):
 
 ```
 ssh adminuser@<public-ip>
@@ -122,7 +124,7 @@ The ssh command will timeout and fail. (If it just hangs, then type ctl-c)  Can 
 
 To enable SSH access, we will need to add a security rule to enable TCP traffic in on port 22.
 
-Add the following to the security group in main.tf.  To see where to add the code, go to the Terraform documentation page for "azurerm_network_security_group". (Or you can look at the code in the solution folder of this lab.)
+Add the following to the security group in the main.tf file.  To see where to add the code, go to the Terraform documentation page for "azurerm_network_security_group". (Or you can look at the code in the solution folder of this lab.)
 
 ```
   security_rule {
@@ -145,6 +147,9 @@ terraform plan
 
 Notice that the plan shows an update to the security group.
 
+![Terraform Plan - Added SG](./images/tf-plan-sg.png "Terraform Plan - Added SG")
+
+
 Run terraform apply (remember to confirm yes to the changes):
 ```
 terraform apply
@@ -152,7 +157,7 @@ terraform apply
 
 When it finishes, try the ssh command again.  (You might need to wait a minute or two.)
 
-This time it should prompt you for a password.  Enter the password from the terraform file.
+This time it should prompt you for a password.  Enter the password that was configured in the vm.tf file.
 
 *You may also be prompted to confirm that you want to connect. Enter "yes".*
 

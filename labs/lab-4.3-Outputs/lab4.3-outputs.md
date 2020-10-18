@@ -13,7 +13,7 @@ Look through the configuration files, and think about what outputs you might wan
 
 :question: What attributes have you needed to find so you can use them in running commands.
 
-For this lab, we will out two values:
+For this lab, we will output two values:
 - Public IP of virtual machine (to include in SSH command)
 - Database endpoint (to include in a psql command to connect to the database)
 

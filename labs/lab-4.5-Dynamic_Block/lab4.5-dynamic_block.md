@@ -15,7 +15,7 @@ Notice that within the network security group resource for the private subnet, t
 
 A dynamic block uses the for_each construct, which you now know requires a map of values by which to populate values for each iteration.  Since there are two security group rules, the map will have two keys.  What might you use as the map key for the different security rules?
 
-In the locals block in main.tf, add a new map with two keys and the following values for each key:
+In the locals block in main.tf, add a new map with two keys (use the security rule names as the keys) and a sub-map for each key to specify the following values:
 * priority
 *	direction
 *	access

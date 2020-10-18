@@ -5,7 +5,7 @@ Lab Objective:
 
 ## Preparation
 
-If you did not complete lab 3.3, you can simply copy the code from that lab as the starting point for this lab.
+If you did not complete lab 3.3, you can simply copy the code from that lab (and run terraform apply) as the starting point for this lab.
 
 ## Lab
 
@@ -84,10 +84,12 @@ Run terraform validate to make sure you have no errors:
 terraform validate
 ```
 
-Run terraform plan and verify that only four new resources will be created.
+Run terraform plan and verify that only five new resources will be created.
 ```
 terraform plan
 ```
+![Terraform Plan - DB](./images/tf-plan-db.png "Terraform Plan - DB")
+
 
 Run terraform apply. (Remember to agree to the changes.)  The database server can sometimes take a few minutes to create.
 ```
@@ -114,7 +116,7 @@ Click on Connection Security under Settings in the left navigation pane to confi
 
 ### Verify Database Connection
 
-Let’s confirm you can connect to the database server.
+If you have extra time, you can confirm that you can connect to the database server.
 
 (NOTE:  The current firewall rules restrict access only from within the virtual network.  For this lab, we will temporarily grant access from the Azure Cloud Shell.)
 
