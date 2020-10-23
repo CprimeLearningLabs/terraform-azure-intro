@@ -239,4 +239,4 @@ terraform apply
 
 ### (Optional) Trying out the load balanced cluster
 
-If you have extra time now or later, you can verify that the load balancer actually works to connect to the clustered VMs.  See the instructions at [Testing Your Cluster](../testing_your_cluster.md).
+If you have extra time now or later, you can verify that the load balancer actually works to connect to the clustered VMs.  See the instructions at [Testing Your Cluster](../optional-material/testing_your_cluster.md).
