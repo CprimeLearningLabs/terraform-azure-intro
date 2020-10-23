@@ -6,7 +6,7 @@ Lab Objective:
 
 ## Preparation
 
-If you did not complete lab 4.3, you can simply copy the code from that lab (and do terraform apply) as the starting point for this lab.
+If you did not complete lab 4.3, you can simply copy the solution code from that lab (and do terraform apply) as the starting point for this lab.
 
 ## Lab
 
@@ -236,3 +236,7 @@ Run terraform apply:
 ```
 terraform apply
 ```
+
+### (Optional) Trying out the load balanced cluster
+
+If you have extra time now or later, you can verify that the load balancer actually works to connect to the clustered VMs.  See the instructions at [Testing Your Cluster](../testing_your_cluster.md).

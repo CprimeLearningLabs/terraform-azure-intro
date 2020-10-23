@@ -5,7 +5,7 @@ Lab Objective:
 
 ## Preparation
 
-If you did not complete lab 4.6, you can simply copy the code from that lab (and do terraform apply) as the starting point for this lab.
+If you did not complete lab 4.6, you can simply copy the solution code from that lab (and do terraform apply) as the starting point for this lab.
 
 ## Lab
 
@@ -124,13 +124,13 @@ We now want a way to determine cluster_size according to the following criteria:
 
 :question: Can you think of what this would look like?
 
-*Hint: It will be a combination of coalesce, lookup and try functions.*
+*Hint: It could be a combination of coalesce and lookup, maybe with try.*
 
 Try your hand at writing out the computation.  In the main.tf file, replace the current hard-coded local value of cluster_size with the computation.  Compare your solution to that below (or in the main.tf file in the solution folder).
 
 <details>
 
- _<summary>Click to see a solution for computing cluster_size</summary>_
+ _<summary>Click to see one solution for computing cluster_size</summary>_
 
 ```
   cluster_size = try(coalesce(var.node_count, lookup(local.size_spec,var.load_level).cluster_size), 1)

@@ -6,7 +6,7 @@ Lab Objective
 
 ## Preparation
 
-If you did not complete lab 5.1, you can simply copy the code from that lab (and do terraform apply) as the starting point for this lab.
+If you did not complete lab 5.1, you can simply copy the solution code from that lab (and do terraform apply) as the starting point for this lab.
 
 ## Lab
 
@@ -18,6 +18,8 @@ Create a subdirectory called “load-balancer”.
 ```
 mkdir load-balancer
 ```
+
+#### Load balancer main
 
 Move the “lb.tf” file to the “load-balancer” directory and rename the file “main.tf”.  (Recall that each module should have a main.tf file as the principal configuration entry point.)  Let's make a couple changes to the file.
 
@@ -38,6 +40,8 @@ Second, to avoid a name collision later when you do terraform apply, change the 
   * azurerm_public_ip:  change name from "aztf-labs-lb-public-ip" to "mod-aztf-labs-lb-public-ip"
   * azurerm_lb: change name from "aztf-labs-loadBalancer" to "mod-aztf-labs-loadBalancer"
   * azurerm_lb_rule:  change name from "aztf-labs-lb-rule" to "mod-aztf-labs-lb-rule"
+
+#### Load balancer variables
 
 Within the “load-balancer” directory, create a file called “variables.tf”.
 
@@ -70,6 +74,8 @@ variable "tags" {
 </details>
 
 Open the load-balancer main.tf file and use these variables to populate the corresponding arguments in all of the resources in the file.
+
+#### Load balancer outputs
 
 Within the “load-balancer” directory, create a file called outputs.tf”.
 
@@ -126,7 +132,7 @@ In the root module, you now need to use the module outputs to replace references
 
 ### Execute terraform commands
 
-To run the terraform commands, you must be in the root module's directory.  **Verify you are in the /clouddrive folder.**  If not, move to that directory.
+To run the terraform commands, you must be in the root module's directory.  :bangbang: **Verify you are in the /clouddrive folder.**  If not, move to that directory.
 
 Let's now validate the code you've written.  If you run terraform validate at this point, you will get an error that you need to run terraform init first.  Do you recall why this is necessary?
 
@@ -155,3 +161,7 @@ Run terraform apply:
 ```
 terraform apply
 ```
+
+### (Optional) Trying out your infrastructure
+
+If you have extra time now or later, you can verify that the load balancer actually works to connect to the clustered VMs.  See the instructions at [Testing Your Cluster](../testing_your_cluster.md).  If you already set up the HTTP servers before, you should be able to just hit the load balancer public IP again now.
