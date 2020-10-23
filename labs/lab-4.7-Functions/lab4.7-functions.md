@@ -178,20 +178,3 @@ You should have seen the following behavior (based on there being two VMs in the
 ![Terraform Plan - load_level = high](./images/tf-plan-cluster2.png "Terraform Plan - load_level = high")
 * When you set the node_count to 2 in terraform.tfvars, the cluster_size derivation should have used that value, and the plan should have shown no change in the number of virtual machines.
 ![Terraform Plan - node_count = 2](./images/tf-plan-cluster3.png "Terraform Plan - node_count = 2")
-
-### Extra Credit
-
-If you have extra time and are up for a challenge, see if you can figure out how to do the following.
-
-Use a variety of functions to use the values from local.common_tags to construct an expression that evaluates to:
-
-“aztf-training-lab-development”
-
-Test your expression using terraform console (i.e., don’t change the actual terraform code)
-
-<details>
-
- _<summary>Click to see one possible solution.</summary>_
-
-![Terraform console extra credit](./images/tf-console-extra.png "Terraform console extra credit")
-</details>
