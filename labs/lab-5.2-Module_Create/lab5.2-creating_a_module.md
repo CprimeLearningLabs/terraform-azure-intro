@@ -132,7 +132,7 @@ In the root module, you now need to use the module outputs to replace references
 
 ### Execute terraform commands
 
-To run the terraform commands, you must be in the root module's directory.  :bangbang: **Verify you are in the /clouddrive folder.**  If not, move to that directory.
+To run the terraform commands, you must be in the root module's directory.  :bangbang: **Verify you are in the root module folder.**  If not, move to that directory.
 
 Let's now validate the code you've written.  If you run terraform validate at this point, you will get an error that you need to run terraform init first.  Do you recall why this is necessary?
 
