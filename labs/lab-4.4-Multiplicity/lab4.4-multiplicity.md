@@ -6,7 +6,7 @@ Lab Objective:
 
 ## Preparation
 
-If you did not complete lab 4.3, you can simply copy the code from that lab (and do terraform apply) as the starting point for this lab.
+If you did not complete lab 4.3, you can simply copy the solution code from that lab (and do terraform apply) as the starting point for this lab.
 
 ## Lab
 
@@ -71,7 +71,7 @@ terraform plan
 
 Run terraform apply.
 
-> Note, you might get an error that the replacement resources could not be created due to the resource already existing.  This is due to a timing conflict between the destroy and create processing when the Azure name is the same between the old and new instances.  The destroy should have succeeded and you can simply run terraform apply a second time to perform the create.
+> :bangbang: Note, you might get an error that the replacement resources could not be created because the resource still exists.  This is due to a timing conflict between the destroy and create processing when the Azure name is the same between the old and new instances.  The destroy should have succeeded, however, and you can simply run terraform apply a second time to perform the create.
 
 ```
 terraform apply
@@ -237,36 +237,6 @@ Run terraform apply:
 terraform apply
 ```
 
-### Install HTTP server on VMs
+### (Optional) Trying out the load balanced cluster
 
-If you have extra time for the lab, you can test out the new cluster.
-
-You will need to install an HTTP server on each VM that you can try reaching through the load balancer.
-
-The public IP for the new VMs is actually the public IP of the load balancer, so you cannot SSH to the cluster VMs directly.  If you want to SSH to the new instances to install an HTTP server, you must go through the bastion host.
-
-SSH to the bastion host, using the public IP of that VM (as you did in an earlier lab).
-
-![Cloudshell - ssh into bastion](./images/cs-ssh-public.png "Cloudshell - ssh into bastion")
-
-To SSH to the cluster VMs, you will need their private IPs.  You can find those by viewing the cluster VMs in the Azure Portal, or by using terraform show to see the state of the resources. Note that you want the private IPs not the public IPs of the cluster VMs.
-
-![Azure Portal - VM 0 IP address](./images/az-vm-0-ip.png "Azure Portal - VM 0 IP address")
-
-From the bastion host, ssh using the private IP of the new VMs.  You’ll be prompted for the password.
-```
-ssh adminuser@<private_ip>
-```
-
-![Cloudshell - ssh into VM 0](./images/cs-ssh-private.png "Cloudshell - ssh into VM 0")
-
-On each of the new VMs, run the following command to start a simple HTTP server on each VM.
-```
-sudo apt-get install -y apache2
-```
-
-![Cloudshell - apt-get install](./images/cs-apt-get-install.png "Cloudshell - apt-get install")
-
-You can now go to a browser and use the public IP of the load balancer to hit the HTTP server on the VMs.
-
-![Browser - http load balancer](./images/http-lb.png "Browser - http load balancer")
+If you have extra time now or later, you can verify that the load balancer actually works to connect to the clustered VMs.  See the instructions at [Testing Your Cluster](../optional-material/testing_your_cluster.md).

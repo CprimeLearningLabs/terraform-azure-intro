@@ -5,7 +5,7 @@ Lab Objective:
 
 ## Preparation
 
-If you did not complete lab 3.3, you can simply copy the code from that lab (and run terraform apply) as the starting point for this lab.
+If you did not complete lab 3.3, you can simply copy the solution code from that lab (and run terraform apply) as the starting point for this lab.
 
 ## Lab
 
@@ -112,31 +112,3 @@ Note the server name in the listing (you will need it later).  Click on the data
 Click on Connection Security under Settings in the left navigation pane to confirm the firewall rule is present.
 
 ![Azure portal - db firewall](./images/az-dbfw.png "Azure portal - db firewall")
-<br /><br />
-
-### Verify Database Connection
-
-If you have extra time, you can confirm that you can connect to the database server.
-
-(NOTE:  The current firewall rules restrict access only from within the virtual network.  For this lab, we will temporarily grant access from the Azure Cloud Shell.)
-
-In Azure Portal, in the Connection Security screen for the database server, see the setting for “Allow access to Azure services”.  Change the setting to Yes.  Click Save icon to save the change.   You may need to wait a minute or so to get a pop-up notification that the change was successfully changed.
-
-![Azure portal - Allow Azure services](./images/az-allow-az.png "Azure portal - Allow Azure services")
-<br /><br />
-
-Go back to the Cloud Shell console.
-
-Enter the following command into the shell, substituting in the correct values for <SERVER_NAME>.  The server name is the resource name in the server list you saw in the Azure portal above (ending in the five digit random number).
-
-```
-psql --host=<SERVER_NAME>.postgres.database.azure.com --username=psqladmin@<SERVER_NAME> --dbname=postgres
-```
-
-You will get a password prompt.  Type in the password from the configuration file.
-
-You should get a postgres prompt.  Type “\l”.  This will show the databases in the server.  Confirm your database is listed.
-
-![Cloud shell - Postgres connection](./images/cs-postgres.png "Cloud shell - Postgres connection")
-
-Exit the postgres prompt by typing "exit".

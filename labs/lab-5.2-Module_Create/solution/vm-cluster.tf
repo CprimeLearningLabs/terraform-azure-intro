@@ -5,16 +5,6 @@ module "load-balancer" {
   location            = local.region
   resource_group_name = azurerm_resource_group.lab.name
   tags                = local.common_tags
-  port_mapping = {
-    protocol      = "Tcp"
-    frontend_port = 80
-    backend_port  = 80
-  }
-  health_probe = {
-    protocol     = "Http"
-    port         = 80
-    request_path = "/"
-  }
 }
 
 
