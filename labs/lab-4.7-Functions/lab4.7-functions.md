@@ -5,7 +5,7 @@ Lab Objective:
 
 ## Preparation
 
-If you did not complete lab 4.6, you can simply copy the code from that lab (and do terraform apply) as the starting point for this lab.
+If you did not complete lab 4.6, you can simply copy the solution code from that lab (and do terraform apply) as the starting point for this lab.
 
 ## Lab
 
@@ -124,13 +124,13 @@ We now want a way to determine cluster_size according to the following criteria:
 
 :question: Can you think of what this would look like?
 
-*Hint: It will be a combination of coalesce, lookup and try functions.*
+*Hint: It could be a combination of coalesce and lookup, maybe with try.*
 
 Try your hand at writing out the computation.  In the main.tf file, replace the current hard-coded local value of cluster_size with the computation.  Compare your solution to that below (or in the main.tf file in the solution folder).
 
 <details>
 
- _<summary>Click to see a solution for computing cluster_size</summary>_
+ _<summary>Click to see one solution for computing cluster_size</summary>_
 
 ```
   cluster_size = try(coalesce(var.node_count, lookup(local.size_spec,var.load_level).cluster_size), 1)
@@ -178,20 +178,3 @@ You should have seen the following behavior (based on there being two VMs in the
 ![Terraform Plan - load_level = high](./images/tf-plan-cluster2.png "Terraform Plan - load_level = high")
 * When you set the node_count to 2 in terraform.tfvars, the cluster_size derivation should have used that value, and the plan should have shown no change in the number of virtual machines.
 ![Terraform Plan - node_count = 2](./images/tf-plan-cluster3.png "Terraform Plan - node_count = 2")
-
-### Extra Credit
-
-If you have extra time and are up for a challenge, see if you can figure out how to do the following.
-
-Use a variety of functions to use the values from local.common_tags to construct an expression that evaluates to:
-
-“aztf-training-lab-development”
-
-Test your expression using terraform console (i.e., don’t change the actual terraform code)
-
-<details>
-
- _<summary>Click to see one possible solution.</summary>_
-
-![Terraform console extra credit](./images/tf-console-extra.png "Terraform console extra credit")
-</details>

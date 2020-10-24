@@ -37,7 +37,7 @@ resource "azurerm_lb_probe" "lab" {
 resource "azurerm_lb_rule" "lab" {
   resource_group_name            = azurerm_resource_group.lab.name
   loadbalancer_id                = azurerm_lb.lab.id
-  name                           = "aztf-labls-lb-rule"
+  name                           = "aztf-labs-lb-rule"
   protocol                       = "Tcp"
   frontend_port                  = 80
   backend_port                   = 80

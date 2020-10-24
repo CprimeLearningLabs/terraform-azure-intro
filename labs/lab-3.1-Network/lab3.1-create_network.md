@@ -5,7 +5,7 @@ Lab Objective:
 
 ## Lab
 
-Copy the file "main.tf" from the solution folder to replace the existing main.tf file.
+Delete your existing main.tf file (or delete all its contents).  Then copy the file "main.tf" from the solution folder to replace the existing main.tf file.
 
 Let's walk through what is changed in this file from the prior lab:
 

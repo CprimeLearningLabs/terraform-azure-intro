@@ -5,7 +5,7 @@ Lab Objective:
 
 # Preparation
 
-If you did not complete lab 3.5, you can simply copy the code from that lab (and do terraform apply) as the starting point for this lab.
+If you did not complete lab 3.5, you can simply copy the solution code from that lab (and do terraform apply) as the starting point for this lab.
 
 # Lab
 
@@ -83,12 +83,7 @@ terraform apply
 
 ### Extra Credit -- Validation
 
-If you still have time and are ambitious, try to write a validation block in variables.tf to verify the db_storage variable is greater than or equal to 5120 and is a multiple of 1024.
-
-
-<details>
-
- _<summary>Click to see solution for db storage variable validation</summary>_
+If you still have time, add a validation block for the db_storage variable in variables.tf to verify the db_storage variable is greater than or equal to 5120 and is a multiple of 1024.
 
 ```
 variable "db_storage" {
@@ -101,4 +96,5 @@ variable "db_storage" {
   }
 }
 ```
-</details>
+
+Change the value of db_storage in <code>terraform.tfvars</code> file to 6140.  Run terraform plan.  You should get an error.  Change the value back to a valid value of 6144.
