@@ -20,6 +20,7 @@ Add three new resources to this file:
 ```
 resource "random_password" "dbpassword" {
   length           = 16
+  min_numeric      = 1
   special          = true
   override_special = "_%#"
 }

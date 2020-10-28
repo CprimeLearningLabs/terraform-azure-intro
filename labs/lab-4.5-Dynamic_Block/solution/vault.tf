@@ -3,6 +3,7 @@ data "azurerm_client_config" "current" {}
 
 resource "random_password" "dbpassword" {
   length           = 16
+  min_numeric      = 1
   special          = true
   override_special = "_%#"
 }
