@@ -1,5 +1,9 @@
 
-data "azurerm_client_config" "current" {}
+data "azuread_client_config" "current" {}
+
+data "azuread_group" "lab" {
+  name = "Students"
+}
 
 resource "random_password" "dbpassword" {
   length           = 16
@@ -12,13 +16,13 @@ resource "azurerm_key_vault" "lab" {
   name                = "aztf-key-vault-${random_integer.suffix.result}"
   location            = local.region
   resource_group_name = azurerm_resource_group.lab.name
-  tenant_id           = data.azurerm_client_config.current.tenant_id
+  tenant_id           = data.azuread_client_config.current.tenant_id
 
   sku_name = "standard"
 
   access_policy {
-    tenant_id = data.azurerm_client_config.current.tenant_id
-    object_id = "[GET VALUE FROM INSTRUCTOR]"
+    tenant_id = data.azuread_client_config.current.tenant_id
+    object_id = data.azuread_group.lab.object_id
     secret_permissions = [
       "get",
       "set",

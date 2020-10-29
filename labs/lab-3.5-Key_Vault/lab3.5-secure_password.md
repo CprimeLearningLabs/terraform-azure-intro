@@ -1,6 +1,7 @@
 # Key Vault
 
 Lab Objective:
+- Use data sources to obtain user data
 - Create a key vault to protect a database password
 - Update database resource to use secured password
 
@@ -10,13 +11,56 @@ If you did not complete lab 3.4, you can simply copy the solution code from that
 
 ## Lab
 
+### Add Data Sources
+
+Access to the key vault we will create shortly requires an access policy allowing your user to read and write secrets in the vault.  The access policy will require a couple bits of information about your user that we will need to read from data sources.  
+
+The data sources we will use require a new provider "azuread".  Open "main.tf" and add "azuread" to the required_providers sub-block and as a new provider block:
+```
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">= 2.20, < 3.0"
+    }
+    azuread = {
+      source = "hashicorp/azuread"
+      version = "~> 1.0.0"
+    }
+  }
+  backend "azurerm" {
+    resource_group_name  = "terraform-course-backend"
+    container_name       = "tfstate"
+    key                  = "cprime.terraform.labs.tfstate"
+  }
+  required_version = "~> 0.13.0"
+}
+
+provider "azurerm" {
+  features {}
+}
+
+provider "azuread" {}
+```
+
+Now create a new file "vault.tf".
+
+In this new file, add two data sources.  The first data source reads information about your user accessing the Azure resource manager.  The second data source reads information from an Active Directory group that your user is a member of.
+```
+data "azuread_client_config" "current" {}
+
+data "azuread_group" "lab" {
+  name = "Students"
+}
+```
+
 ### Create Key Vault
 
-Create a new file “vault.tf”
+We can new declare the resources for a key vault.
 
-Add three new resources to this file:
+Add three new resources to the "vault.tf" file:
 
-1. A random password
+1. A random password that will be the new database password.
 ```
 resource "random_password" "dbpassword" {
   length           = 16
@@ -26,19 +70,19 @@ resource "random_password" "dbpassword" {
 }
 ```
 
-2. A key vault to hold secrets.  Notice the placeholder for the object_id argument &mdash; the value to substitute is explained further below.
+2. A key vault to hold secrets.  Notice the references to the data sources.
 ```
 resource "azurerm_key_vault" "lab" {
   name                = "aztf-key-vault-${random_integer.suffix.result}"
   location            = local.region
   resource_group_name = azurerm_resource_group.lab.name
-  tenant_id           = data.azurerm_client_config.current.tenant_id
+  tenant_id           = data.azuread_client_config.current.tenant_id
 
   sku_name = "standard"
 
   access_policy {
-    tenant_id = data.azurerm_client_config.current.tenant_id
-    object_id = "[GET VALUE FROM INSTRUCTOR]"
+    tenant_id = data.azuread_client_config.current.tenant_id
+    object_id = data.azuread_group.lab.object_id
     secret_permissions = [
       "get",
       "set",
@@ -60,16 +104,10 @@ resource "azurerm_key_vault_secret" "lab-db-pwd" {
 }
 ```
 
-Permission to read the password secret from the key vault is protected by the access policy defined in the key vault.  The policy requires two values for authenticating to the key vault: a tenant id and an object id.
-
-To set the tenant id, we will simply add a data resource into the file.  (You will learn about data resources later in the course.)  Add the following to the file:
+The two data sources uses a new provider "azuread", which therefore means you must run terraform init:
 ```
-data "azurerm_client_config" "current" {}
+terraform init
 ```
-
-The object id will be provided to you by the instructor of the class.  Substitute the value you receive for the [GET VALUE FROM INSTRUCTOR] placeholder in the key vault resource in the file.
-
-> The need to hard-code the object id is due to using the Azure Portal Cloud Shell to run Terraform.  If you run Terraform from your own machine, you may be able to pull the object id from the same data resource as the tenant id.
 
 Run terraform validate to make sure you have no errors:
 ```
@@ -81,7 +119,7 @@ Run terraform plan:
 terraform plan
 ```
 
-Run terraform apply.  The key value might take a couple minutes to create.
+Run terraform apply.  The key vault might take a couple minutes to create.
 ```
 terraform apply
 ```

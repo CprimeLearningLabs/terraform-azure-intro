@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = ">= 2.20, < 3.0"
     }
+    azuread = {
+      source = "hashicorp/azuread"
+      version = ">= 1.0.0"
+    }
   }
   backend "azurerm" {
     resource_group_name  = "terraform-course-backend"
@@ -17,6 +21,8 @@ provider "azurerm" {
   features {}
 }
 
+provider "azuread" {}
+
 locals {
   region = var.region
   common_tags = {
@@ -24,16 +30,6 @@ locals {
     Project     = "AZTF Training"
   }
 
-  db_fw_rules = {
-    private = {
-      start_ip = cidrhost(azurerm_subnet.lab-private.address_prefixes[0],0)
-      end_ip   = cidrhost(azurerm_subnet.lab-private.address_prefixes[0],255)
-    },
-    bastion = {
-      start_ip = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
-      end_ip   = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
-    }
-  }
   cluster_size = 2
 
   sg_rules = {

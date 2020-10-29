@@ -5,7 +5,7 @@ Lab Objective:
 
 ## Preparation
 
-If you did not complete lab 4.7, you can simply copy the solution code from that lab (and do terraform apply) as the starting point for this lab.
+If you did not complete lab 4.6, you can simply copy the solution code from that lab (and do terraform apply) as the starting point for this lab.
 
 ## Lab
 
@@ -51,7 +51,7 @@ module "database-server" {
   ssl_enforcement_enabled = false
 
   administrator_login     = "psqladmin"
-  administrator_password  = data.azurerm_key_vault_secret.creds.value
+  administrator_password  = azurerm_key_vault_secret.lab-db-pwd.value
 
   db_names                = ["aztf-labs-db"]
   db_charset              = "UTF8"
