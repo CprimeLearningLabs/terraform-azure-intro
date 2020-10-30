@@ -13,9 +13,9 @@ If you did not complete lab 3.4, you can simply copy the solution code from that
 
 ### Add Data Sources
 
-Access to the key vault we will create shortly requires an access policy allowing your user to read and write secrets in the vault.  The access policy will require a couple bits of information about your user that we will need to read from data sources.  
+Access to the key vault we will create shortly requires an access policy allowing your user to write and read secrets in the vault.  The access policy will require a couple bits of information about your user that we will need to read from data sources.  
 
-The data sources we will use require a new provider "azuread".  Open "main.tf" and add "azuread" to the required_providers sub-block and as a new provider block:
+One of the data sources we will use requires a new provider "azuread".  Open "main.tf" and add "azuread" to the required_providers sub-block and as a new provider block:
 ```
 terraform {
   required_providers {
@@ -45,9 +45,9 @@ provider "azuread" {}
 
 Now create a new file "vault.tf".
 
-In this new file, add two data sources.  The first data source reads information about your user accessing the Azure resource manager.  The second data source reads information from an Active Directory group that your user is a member of.
+In this new file, add two data sources.  The first data source reads information about your user accessing the Azure resource manager.  The second data source reads information from Active Directory about a group your user is a member of.
 ```
-data "azuread_client_config" "current" {}
+data "azurerm_client_config" "current" {}
 
 data "azuread_group" "lab" {
   name = "Students"
@@ -76,12 +76,12 @@ resource "azurerm_key_vault" "lab" {
   name                = "aztf-key-vault-${random_integer.suffix.result}"
   location            = local.region
   resource_group_name = azurerm_resource_group.lab.name
-  tenant_id           = data.azuread_client_config.current.tenant_id
+  tenant_id           = data.azurerm_client_config.current.tenant_id
 
   sku_name = "standard"
 
   access_policy {
-    tenant_id = data.azuread_client_config.current.tenant_id
+    tenant_id = data.azurerm_client_config.current.tenant_id
     object_id = data.azuread_group.lab.object_id
     secret_permissions = [
       "get",
@@ -104,7 +104,7 @@ resource "azurerm_key_vault_secret" "lab-db-pwd" {
 }
 ```
 
-The two data sources uses a new provider "azuread", which therefore means you must run terraform init:
+Since one of data sources uses a new provider "azuread", you must run terraform init:
 ```
 terraform init
 ```
