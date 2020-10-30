@@ -12,21 +12,20 @@ If you did not complete lab 4.3, you can simply copy the solution code from that
 
 ### Using for_each
 
-Open database.tf file.
+Open database.tf file for edit.
 
 Notice that we have two firewall rules that are essentially the same except for the name suffix and the ip addresses.  This would be a good case for using one of the multiplicity meta-arguments.  Can you articulate why for_each would be better to use in this case than using count?
 
 The for_each operation requires a map.  What are the pieces of information that differ between the firewall rules?  Think about what the map might look like to capture the different values.
 
-Open main.tf to edit.
-
-In the locals block add a new map called db_fw_rules for the firewall rules.  The map keys could be the name suffix ("private" and "bastion") and the values could be a sub-map for the start_ip and end_ip values.  Try your hand at writing the map, then check the solution below (or look in main.tf in the solution folder.)
+Add a locals block to the database.tf file and define a local map called db_fw_rules for the firewall rules.  The map keys could be the name suffix ("private" and "bastion") and the values could be a sub-map for the start_ip and end_ip values.  Try your hand at writing the map, then check the solution below (or look in database.tf in the solution folder.)
 
 <details>
 
  _<summary>Click to see solution for fire wall rule map</summary>_
 
 ```
+locals {
   db_fw_rules = {
     private = {
       start_ip = cidrhost(azurerm_subnet.lab-private.address_prefixes[0],0)
@@ -36,11 +35,10 @@ In the locals block add a new map called db_fw_rules for the firewall rules.  Th
       start_ip = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
       end_ip   = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
     }
-  }
+  }  
+}
 ```
 </details>
-
-Open database.tf
 
 Replace the two firewall rule resources by a single resource that uses the for_each.  Notice that we can use the map key as well as the map values.
 ```

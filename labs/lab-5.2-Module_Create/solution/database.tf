@@ -1,7 +1,14 @@
-data "azurerm_key_vault_secret" "creds" {
-  name         = "dbpassword"
-  key_vault_id = azurerm_key_vault.lab.id
-  depends_on   = [azurerm_key_vault_secret.lab-db-pwd]
+locals {
+  db_fw_rules = {
+    private = {
+      start_ip = cidrhost(azurerm_subnet.lab-private.address_prefixes[0],0)
+      end_ip   = cidrhost(azurerm_subnet.lab-private.address_prefixes[0],255)
+    },
+    bastion = {
+      start_ip = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
+      end_ip   = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
+    }
+  }
 }
 
 resource "random_integer" "suffix" {
@@ -10,24 +17,23 @@ resource "random_integer" "suffix" {
 }
 
 module "database-server" {
-  source = "Azure/postgresql/azurerm"  #from Terraform registry
+  source  = "Azure/postgresql/azurerm"  #from Terraform registry
   version = "2.1.0"
 
-  location            = local.region
-  resource_group_name = azurerm_resource_group.lab.name
+  location                = local.region
+  resource_group_name     = azurerm_resource_group.lab.name
+  server_name             = "aztf-labs-psqlserver-${random_integer.suffix.result}-mod"
+  sku_name                = "B_Gen5_1"
+  server_version          = "11"
+  storage_mb              = var.db_storage
+  ssl_enforcement_enabled = false
 
-  server_name                  = "aztf-labs-psqlserver-${random_integer.suffix.result}-mod"
-  sku_name                     = "B_Gen5_1"
-  server_version               = "11"
-  storage_mb                   = var.db_storage
-  ssl_enforcement_enabled      = false
+  administrator_login     = "psqladmin"
+  administrator_password  = azurerm_key_vault_secret.lab-db-pwd.value
 
-  administrator_login          = "psqladmin"
-  administrator_password       = data.azurerm_key_vault_secret.creds.value
-
-  db_names                     = ["aztf-labs-db"]
-  db_charset                   = "UTF8"
-  db_collation                 = "English_United States.1252"
+  db_names                = ["aztf-labs-db"]
+  db_charset              = "UTF8"
+  db_collation            = "English_United States.1252"
 
   tags = local.common_tags
 

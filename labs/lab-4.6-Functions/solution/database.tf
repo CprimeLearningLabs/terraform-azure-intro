@@ -1,7 +1,14 @@
-data "azurerm_key_vault_secret" "creds" {
-  name         = "dbpassword"
-  key_vault_id = azurerm_key_vault.lab.id
-  depends_on   = [azurerm_key_vault_secret.lab-db-pwd]
+locals {
+  db_fw_rules = {
+    private = {
+      start_ip = cidrhost(azurerm_subnet.lab-private.address_prefixes[0],0)
+      end_ip   = cidrhost(azurerm_subnet.lab-private.address_prefixes[0],255)
+    },
+    bastion = {
+      start_ip = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
+      end_ip   = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
+    }
+  }
 }
 
 resource "random_integer" "suffix" {
@@ -21,7 +28,7 @@ resource "azurerm_postgresql_server" "lab" {
   ssl_enforcement_enabled       = false
 
   administrator_login           = "psqladmin"
-  administrator_login_password  = data.azurerm_key_vault_secret.creds.value
+  administrator_login_password  = azurerm_key_vault_secret.lab-db-pwd.value
 
   tags = local.common_tags
 }

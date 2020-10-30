@@ -1,3 +1,16 @@
+locals {
+  db_fw_rules = {
+    private = {
+      start_ip = cidrhost(azurerm_subnet.lab-private.address_prefixes[0],0)
+      end_ip   = cidrhost(azurerm_subnet.lab-private.address_prefixes[0],255)
+    },
+    bastion = {
+      start_ip = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
+      end_ip   = azurerm_linux_virtual_machine.lab-bastion.private_ip_address
+    }
+  }
+}
+
 resource "random_integer" "suffix" {
   min = 10000
   max = 99999

@@ -1,8 +1,13 @@
 
 data "azurerm_client_config" "current" {}
 
+data "azuread_group" "lab" {
+  name = "Students"
+}
+
 resource "random_password" "dbpassword" {
   length           = 16
+  min_numeric      = 1
   special          = true
   override_special = "_%#"
 }
@@ -17,7 +22,7 @@ resource "azurerm_key_vault" "lab" {
 
   access_policy {
     tenant_id = data.azurerm_client_config.current.tenant_id
-    object_id = "[GET VALUE FROM INSTRUCTOR]"
+    object_id = data.azuread_group.lab.object_id
     secret_permissions = [
       "get",
       "set",
