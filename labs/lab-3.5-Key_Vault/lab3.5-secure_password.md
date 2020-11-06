@@ -1,4 +1,4 @@
-# Key Vault
+# Data Source & Key Vault
 
 Lab Objective:
 - Use data sources to obtain user data
