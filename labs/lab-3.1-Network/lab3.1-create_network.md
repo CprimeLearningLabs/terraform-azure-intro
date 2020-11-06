@@ -9,18 +9,26 @@ Delete your existing main.tf file (or delete all its contents).  Then copy the f
 
 Let's walk through what is changed in this file from the prior lab:
 
-1. We have removed "random" as a required_provider and replaced it with using Azure RM as a required provider.
+1. We have removed "random" as a required_provider and replaced it with using Azure RM as a required provider.  We continue to use Azure for storing backend state.
 
 ```
-required_providers {
-  azurerm = {
-    source  = "hashicorp/azurerm"
-    version = ">= 2.20, < 3.0"
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">= 2.20, < 3.0"
+    }
   }
+  backend "azurerm" {
+    resource_group_name  = "terraform-course-backend"
+    container_name       = "tfstate"
+    key                  = "cprime.terraform.labs.tfstate"
+  }
+  required_version = "~> 0.13.0"
 }
 ```
 
-2. We have included a provider block to configure the Azure provider.  We will be using the default configuration of the provider.
+2. We have added a provider block to configure the Azure provider.  We will be using the default configuration of the provider.
 
 ```
 provider "azurerm" {

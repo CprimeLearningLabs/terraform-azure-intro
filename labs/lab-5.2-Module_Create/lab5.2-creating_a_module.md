@@ -106,7 +106,7 @@ At this point, you now have a nested module with inputs and outputs defined.  Ne
 
 ### Modify code to call the new module
 
-Open the file vm-cluster.tf in the root module.  Add a call to the load balancer module, setting argument values corresponding to the input variables for the load balancer.  The module source should be "./modules/load-balancer".
+Open the file vm-cluster.tf in the root module.  Add a call to the load balancer module, setting argument values corresponding to the input variables for the load balancer.  The module source should be "./load-balancer".
 
 Try writing this on your own first. Compare your code to the solution below (or in the vm-cluster.tf file in the solution folder).
 

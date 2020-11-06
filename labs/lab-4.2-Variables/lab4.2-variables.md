@@ -57,7 +57,7 @@ Run terraform validate to check for errors.
 
 Create a file called terraform.tfvars
 
-Set the values for the variables in that file.  Keep the region the same as before to avoid recreating the entire infrastructure.  Also, keeping the password the same as before will avoid re-creating the virtual machine.  (If you forgot the VM password, you can look in the solution folder of a previous lab.)  The database storage value must be a multiple of 1024 and greater than 5120.
+Set the values for the variables in that file.  Keep the region the same as before to avoid recreating the entire infrastructure.  Keeping the password the same as before will avoid re-creating the virtual machine.  The database storage value must be a multiple of 1024 and greater than 5120.
 
 ```
 region = "westus2"
@@ -65,7 +65,9 @@ db_storage = 6144
 vm_password = "<PASSWORD>"
 ```
 
-:bangbang: NOTE:  Storing passwords in a file is a strongly discouraged practice.  The virtual machine really should be using an SSH key for access instead of a password.  Including a password in the variables file is only for the convenience of this lab and should not be done in actual practice.
+:bangbang: Be sure to replace &lt;PASSWORD&gt; with the actual password string above. (If you forgot the VM password, you can look in the solution folder of a prior lab.)
+
+> Storing passwords in a file is a strongly discouraged practice.  The virtual machine really should be using an SSH key for access instead of a password.  Including a password in the variables file is only for the convenience of this lab and should not be done in actual practice.
 
 Run terraform plan:
 ```
