@@ -43,14 +43,14 @@ Run terraform validate to check for syntax errors:
 terraform validate
 ```
 
-Run terraform plan. See that the execution plan will be adding the outputs to the state. Since the output values are from existing state, the plan will also show you the values.  Are they what you expect?
+Run terraform plan. See that the execution plan will be adding the outputs to the state. Since the output values are derived from existing state, the plan will also show you the values.  Are they what you expect?
 ```
 terraform plan
 ```
 
 ![Terraform Plan - Outputs](./images/tf-plan-outputs.png "Terraform Plan - Outputs")
 
-Run terraform apply:
+Run terraform apply.  This is necessary to save the output values into the Terraform state.
 
 ```
 terraform apply
@@ -60,7 +60,7 @@ The output values will show up in the console at the end of the apply console ou
 
 ![Terraform Apply - Outputs](./images/tf-apply-outputs.png "Terraform Apply - Outputs")
 
-You can also use terraform output to view the output values now that they are part of the Terraform state.
+You can use terraform output to view the output values now that they are part of the Terraform state.
 
 ```
 terraform output bastion-vm-public-ip
