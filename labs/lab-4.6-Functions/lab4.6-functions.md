@@ -13,7 +13,7 @@ If you did not complete lab 4.5, you can simply copy the solution code from that
 
 Open the file variables.tf.
 
-Add a new variable to accept additional tags to set on our resources.  What should be the type for the tags variable?  (Hint: take a look at the existing tags local value in main.tf.)
+Add a new variable to accept additional tags to set on our resources.  What should be the type for the tags variable?  (Hint: take a look at the existing tags local value in main.tf.)  Declare an empty map as the default value for the variable.
 
 <details>
 
