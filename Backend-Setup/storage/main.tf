@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 2.40"
+    }
+  }
+}
 
 resource "azurerm_resource_group" "backend-rg" {
   name     = "terraform-course-backend"

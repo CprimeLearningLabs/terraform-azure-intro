@@ -92,7 +92,7 @@ terraform apply
 ```
 ![Terraform apply - VM creation](./images/tf-vm-apply.png "Terraform apply - VM creation")
 
-### Connect to the virtual machine
+### Try connecting to the virtual machine
 
 Let's try checking that the infrastructure actually works by connecting to the virtual machine.
 

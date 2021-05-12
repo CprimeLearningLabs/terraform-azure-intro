@@ -20,7 +20,6 @@ resource "azurerm_lb" "lab" {
 }
 
 resource "azurerm_lb_backend_address_pool" "lab" {
-  resource_group_name = azurerm_resource_group.lab.name
   loadbalancer_id     = azurerm_lb.lab.id
   name                = "BackEndAddressPool"
 }

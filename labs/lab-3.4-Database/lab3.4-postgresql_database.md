@@ -104,11 +104,11 @@ Go to the Azure Portal.  Type “postgres” and select the “Azure Database fo
 ![Azure portal - Search for Postgres](./images/az-postgres.png "Azure portal - Search for Postgres")
 <br /><br />
 
-Note the server name in the listing (you will need it later).  Click on the database server name in the list.
+Click on the database server name in the list.
 
 ![Azure portal - db server](./images/az-dbserver.png "Azure portal - db server")
 <br /><br />
 
-Click on Connection Security under Settings in the left navigation pane to confirm the firewall rule is present.
+Click on Connection Security under Settings in the left navigation pane to confirm the firewall rules are present.
 
 ![Azure portal - db firewall](./images/az-dbfw.png "Azure portal - db firewall")

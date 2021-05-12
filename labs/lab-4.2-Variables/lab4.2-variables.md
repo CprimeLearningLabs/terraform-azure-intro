@@ -36,6 +36,7 @@ variable "region" {
 variable "vm_password" {
   description = "6-20 characters. At least 1 lower, 1 cap, 1 number, 1 special char."
   type = string
+  sensitive = true
 }
 
 variable "db_storage" {

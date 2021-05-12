@@ -53,7 +53,7 @@ terraform {
     container_name       = "tfstate"
     key                  = "cprime.terraform.labs.tfstate"
   }
-  required_version = "~> 0.13.0"
+  required_version = "~> 0.15.0"
 }
 ```
 

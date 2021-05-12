@@ -2,10 +2,10 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = ">= 2.20, < 3.0"
+      version = ">= 2.40, < 3.0"
     }
   }
-  required_version = "~> 0.13.0"
+  required_version = "~> 0.15.0"
 }
 
 resource "azurerm_public_ip" "lab-lb" {
@@ -30,7 +30,6 @@ resource "azurerm_lb" "lab" {
 }
 
 resource "azurerm_lb_backend_address_pool" "lab" {
-  resource_group_name = var.resource_group_name
   loadbalancer_id     = azurerm_lb.lab.id
   name                = "BackEndAddressPool"
 }

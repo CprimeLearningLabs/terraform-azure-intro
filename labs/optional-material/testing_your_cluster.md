@@ -20,7 +20,7 @@ You will be prompted for the password.  Enter the password that was configured i
 
 ### Connect to Cluster VMs and Install HTTP Server
 
-From the bastion host, you can SSH to each of the cluster VMs. To SSH to the cluster VMs, you will need their private IPs.  You can find those by viewing the cluster VMs in the Azure Portal, or by using terraform show to see the state of the resources. Note that you want the private IPs not the public IPs of the cluster VMs.
+From the bastion host, you can SSH to each of the cluster VMs. To SSH to the cluster VMs, you will need their private IPs.  You can find those by viewing the cluster VMs in the Azure Portal, or by using terraform show to see the state of the resources. Note that you want the private IPs not the public IPs of the cluster VMs. (The public IP of the cluster VMs is the IP address of the load balancer.)
 
 ![Azure Portal - VM 0 IP address](./images/az-vm-0-ip.png "Azure Portal - VM 0 IP address")
 
