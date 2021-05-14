@@ -165,3 +165,12 @@ terraform apply
 ### (Optional) Trying out your infrastructure
 
 If you have extra time now or later, you can verify that the load balancer actually works to connect to the clustered VMs.  See the instructions at [Testing Your Cluster](../optional-material/testing_your_cluster.md).  If you already set up the HTTP servers before, you should be able to just hit the load balancer public IP again now.
+
+## Lab Cleanup
+
+This is the final lab of the class.  When you are done with the lab and are satisfied with the results, please tear down everything you created by running terraform destroy:
+```
+terraform destroy
+```
+
+You might get an error about not having permission to perform a purge action on the key vault.  If so, just run terraform destroy again.
