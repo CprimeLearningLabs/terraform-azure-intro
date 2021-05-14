@@ -27,6 +27,7 @@ resource "azurerm_key_vault" "lab" {
       "get",
       "set",
       "delete",
+      "purge",
       "list"
     ]
   }

@@ -52,7 +52,7 @@ Let's generation an execution plan. Run the following:
 terraform plan
 ```
 
-The plan should only show creation since there was no prior state yet.  You should see following:
+The plan should only show creation since there was no prior state yet.  You should see output similar to the following:
 
 ![Terraform plan](./images/tf-plan.png "Output of terraform plan")
 

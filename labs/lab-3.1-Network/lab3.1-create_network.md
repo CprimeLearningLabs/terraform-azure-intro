@@ -16,7 +16,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = ">= 2.20, < 3.0"
+      version = ">= 2.40, < 3.0"
     }
   }
   backend "azurerm" {
@@ -24,7 +24,7 @@ terraform {
     container_name       = "tfstate"
     key                  = "cprime.terraform.labs.tfstate"
   }
-  required_version = "~> 0.13.0"
+  required_version = "~> 0.15.0"
 }
 ```
 
@@ -141,6 +141,6 @@ Confirm you see the virtual network and security group listed.<br />
 ![Resource Group containing virtual network and security group](./images/az-rg-vnet.png "Resource Group containing virtual network and security group")
 
 <br /><br />
-Click on the virtual network and confirm it has the expected subnet, and that the subnet has the expected security group.
+Click on the virtual network and confirm it has the expected subnets, and that the public subnet has the expected security group.
 
 ![Virtual network subnets and security group](./images/az-vnet-subnets.png "Virtual network subnets and security group")

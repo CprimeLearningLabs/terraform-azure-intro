@@ -29,10 +29,10 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = ">= 2.20, < 3.0"
+      version = ">= 2.40, < 3.0"
     }
   }
-  required_version = "~> 0.13.0"
+  required_version = "~> 0.15.0"
 }
 ```
 
@@ -165,3 +165,12 @@ terraform apply
 ### (Optional) Trying out your infrastructure
 
 If you have extra time now or later, you can verify that the load balancer actually works to connect to the clustered VMs.  See the instructions at [Testing Your Cluster](../optional-material/testing_your_cluster.md).  If you already set up the HTTP servers before, you should be able to just hit the load balancer public IP again now.
+
+## Lab Cleanup
+
+This is the final lab of the class.  When you are done with the lab and are satisfied with the results, please tear down everything you created by running terraform destroy:
+```
+terraform destroy
+```
+
+You might get an error about not having permission to perform a purge action on the key vault.  If so, just run terraform destroy again.
