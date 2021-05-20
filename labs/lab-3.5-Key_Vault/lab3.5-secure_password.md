@@ -164,7 +164,7 @@ For the “administrator_login_password” argument, use the following for the v
 
 Run terraform plan.  Note that the database server will be updated in place and does not need to be re-created.
 ```
-terrafrom plan
+terraform plan
 ```
 ![Terraform Plan - Key vault](./images/tf-plan-key-vault.png "Terraform Plan - Key vault")
 Run terraform apply
