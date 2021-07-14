@@ -24,7 +24,7 @@ terraform {
     container_name       = "tfstate"
     key                  = "cprime.terraform.labs.tfstate"
   }
-  required_version = "~> 0.15.0"
+  required_version = "~> 1.0.0"
 }
 ```
 
