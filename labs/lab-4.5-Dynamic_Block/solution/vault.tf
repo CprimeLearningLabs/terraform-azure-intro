@@ -2,7 +2,7 @@
 data "azurerm_client_config" "current" {}
 
 data "azuread_group" "lab" {
-  name = "Students"
+  display_name = "Students"
 }
 
 resource "random_password" "dbpassword" {

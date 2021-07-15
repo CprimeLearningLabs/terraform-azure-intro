@@ -33,7 +33,7 @@ terraform {
     container_name       = "tfstate"
     key                  = "cprime.terraform.labs.tfstate"
   }
-  required_version = "~> 0.15.0"
+  required_version = "~> 1.0.0"
 }
 
 provider "azurerm" {
@@ -50,7 +50,7 @@ In this new file, add two data sources.  The first data source reads information
 data "azurerm_client_config" "current" {}
 
 data "azuread_group" "lab" {
-  name = "Students"
+  display_name = "Students"
 }
 ```
 
