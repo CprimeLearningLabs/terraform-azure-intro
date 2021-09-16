@@ -25,7 +25,7 @@ terraform {
     }
     azuread = {
       source = "hashicorp/azuread"
-      version = ">= 1.0.0"
+      version = "~> 2.0"
     }
   }
   backend "azurerm" {
@@ -38,9 +38,12 @@ terraform {
 
 provider "azurerm" {
   features {}
+  skip_provider_registration = true
 }
 
-provider "azuread" {}
+provider "azuread" {
+  use_msi = false
+}
 ```
 
 Now create a new file "vault.tf".
