@@ -30,7 +30,9 @@ terraform {
 }
 ```
 
-2. Add a provider block to configure the Azure RM provider.  We will be using the default configuration of the provider. (Do not delete the "random" provider.)
+2. Add a provider block to configure the Azure RM provider.  We will be using the default configuration of the provider. *Do not delete the "random" provider.*
+
+   (The "provider" referred to in the "skip_provider_registration" flag is a Microsoft provider configured in the Azure subscription, which is not the same as the Azure RM provider for Terraform.  Sorry for the confusion.)
 
 ```
 provider "azurerm" {
@@ -39,7 +41,6 @@ provider "azurerm" {
   skip_provider_registration = true
 }
 ```
-> The "provider" referred to in the "skip_provider_registration" flag above is a Microsoft provider configured in the Azure subscription, which is not the same as the Azure RM provider for Terraform.  Sorry for the confusion.
 
 3. Delete the existing "random_integer" resource from the file.
 
