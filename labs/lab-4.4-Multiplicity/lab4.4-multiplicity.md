@@ -133,17 +133,7 @@ resource "azurerm_network_interface_backend_address_pool_association" "lab-app" 
 }
 ```
 
-3. Add an availability set.  We do not use count here since we only need one availability set for the entire cluster.
-```
-resource "azurerm_availability_set" "lab-app" {
-  name                         = "aztf-labs-avset"
-  location                     = local.region
-  resource_group_name          = azurerm_resource_group.lab.name
-  tags                         = local.common_tags
-}
-```
-
-4. Add the virtual machine.  We use count here to create multiple virtual machines.  Note that the VMs are identical other than references to count.index.
+3. Add the virtual machines.  We use count here to create multiple virtual machines.  Note that the VMs are identical other than references to count.index.
 ```
 resource "azurerm_linux_virtual_machine" "lab-app" {
   count                 = local.cluster_size
@@ -170,6 +160,16 @@ resource "azurerm_linux_virtual_machine" "lab-app" {
   }
 
   tags = local.common_tags
+}
+```
+
+4. Add an availability set.  We do not use count here since we only need one availability set for the entire cluster.
+```
+resource "azurerm_availability_set" "lab-app" {
+  name                         = "aztf-labs-avset"
+  location                     = local.region
+  resource_group_name          = azurerm_resource_group.lab.name
+  tags                         = local.common_tags
 }
 ```
 

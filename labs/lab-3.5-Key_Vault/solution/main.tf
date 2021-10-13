@@ -1,12 +1,16 @@
 terraform {
   required_providers {
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 2.3.0"
+    }
     azurerm = {
       source  = "hashicorp/azurerm"
       version = ">= 2.40, < 3.0"
     }
     azuread = {
       source = "hashicorp/azuread"
-      version = ">= 1.0.0"
+      version = "~> 2.0"
     }
   }
   backend "azurerm" {
@@ -17,11 +21,18 @@ terraform {
   required_version = "~> 1.0.0"
 }
 
-provider "azurerm" {
-  features {}
+provider "random" {
 }
 
-provider "azuread" {}
+provider "azurerm" {
+  features {}
+  # Set the following flag to avoid an Azure subscription configuration error
+  skip_provider_registration = true
+}
+
+provider "azuread" {
+  use_msi = false
+}
 
 locals {
   region = "westus2"

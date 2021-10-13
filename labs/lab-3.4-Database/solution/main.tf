@@ -1,5 +1,9 @@
 terraform {
   required_providers {
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 2.3.0"
+    }
     azurerm = {
       source  = "hashicorp/azurerm"
       version = ">= 2.40, < 3.0"
@@ -13,8 +17,13 @@ terraform {
   required_version = "~> 1.0.0"
 }
 
+provider "random" {
+}
+
 provider "azurerm" {
   features {}
+  # Set the following flag to avoid an Azure subscription configuration error
+  skip_provider_registration = true
 }
 
 locals {
