@@ -51,6 +51,6 @@ resource "azurerm_lb_rule" "lab" {
   frontend_port                  = 80
   backend_port                   = 80
   frontend_ip_configuration_name = "publicIPAddress"
-  backend_address_pool_id        = azurerm_lb_backend_address_pool.lab.id
+  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.lab.id]
   probe_id                       = azurerm_lb_probe.lab.id
 }
