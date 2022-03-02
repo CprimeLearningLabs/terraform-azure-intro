@@ -59,7 +59,7 @@ terraform {
 
 This will now direct the state to be saved in Azure.  Since you changed the backend configuration, you will need to run terraform init again.
 
-A missing argument in the backend configuration above is the specification of an Azure storage account.  Terraform will therefore prompt you to enter the storage account name when you run terraform init.  The storage account name will be "aztfcoursebackendNN" where NN is your username sequence number.  For example, if your username for logging into Azure was "student05" then your sequence number would be "05" (from the end of the username) and the storage account name would be "aztfcoursebackend05".
+A missing argument in the backend configuration above is the specification of an Azure storage account.  Terraform will therefore prompt you to enter the storage account name when you run terraform init.  The storage account name will be of the form `aztflabsbackendNN` where `NN` is your username sequence number.  For example, if your username for logging into Azure was "student05" then your sequence number would be "05" (from the end of the username) and the storage account name would be "aztflabsbackend05".
 
 Run:
 
