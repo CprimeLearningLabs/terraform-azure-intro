@@ -40,7 +40,7 @@ At the “>” prompt, enter the following to see what they evaluate to.
 ```
 > local.common_tags["Environment"] == "Prod" ? "B_Gen4_1" : "GP_Gen5_4"
 
-> local.region == "westus2" ? "primary" : "secondary"
+> local.region == "eastus2" ? "primary" : "secondary"
 ```
 <details>
 

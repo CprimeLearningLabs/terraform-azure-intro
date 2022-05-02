@@ -61,7 +61,7 @@ Create a file called terraform.tfvars
 Set the values for the variables in that file.  Keep the region the same as before to avoid recreating the entire infrastructure.  Keeping the password the same as before will avoid re-creating the virtual machine.  The database storage value must be a multiple of 1024 and greater than 5120.
 
 ```
-region = "westus2"
+region = "eastus2"
 db_storage = 6144
 vm_password = "<PASSWORD>"
 ```
