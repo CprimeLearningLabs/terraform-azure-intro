@@ -28,7 +28,7 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "lab" {
   name     = "aztf-labs-rg"
-  location = "westus2"
+  location = "eastus2"
   tags     = {
     Environment = "Lab"
     Project     = "AZTF Training"
@@ -37,7 +37,7 @@ resource "azurerm_resource_group" "lab" {
 
 resource "azurerm_virtual_network" "lab" {
   name                = "aztf-labs-vnet"
-  location            = "westus2"
+  location            = "eastus2"
   resource_group_name = azurerm_resource_group.lab.name
   address_space       = ["10.0.0.0/16"]
   tags                = {
@@ -62,7 +62,7 @@ resource "azurerm_subnet" "lab-private" {
 
 resource "azurerm_network_security_group" "lab-public" {
   name                = "aztf-labs-public-sg"
-  location            = "westus2"
+  location            = "eastus2"
   resource_group_name = azurerm_resource_group.lab.name
 }
 

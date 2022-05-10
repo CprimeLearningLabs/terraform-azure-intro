@@ -16,7 +16,7 @@ Look through the code to see what literal values are used more than once.  What 
 In your main.tf file open for edit, add a locals block below the provider block and set two local values:
 ```
 locals {
-  region = "westus2"
+  region = "eastus2"
   common_tags = {
     Environment = "Lab"
     Project     = "AZTF Training"
